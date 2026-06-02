@@ -15,7 +15,7 @@ export type ProductPreview = Omit<Product, "createdAt" | "updatedAt">;
 
 interface ProductCardProps {
   product: ProductPreview;
-  locale: string;
+  locale: any;
 }
 
 export default function ProductCard({ product, locale }: ProductCardProps) {

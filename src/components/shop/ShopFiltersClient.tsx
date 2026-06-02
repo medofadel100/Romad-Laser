@@ -7,7 +7,7 @@ import type { Category } from "@/types";
 import ProductCard, { ProductPreview } from "@/components/products/ProductCard";
 
 interface ShopFiltersClientProps {
-  locale: string;
+  locale: any;
   categories: Category[];
   products: ProductPreview[];
 }

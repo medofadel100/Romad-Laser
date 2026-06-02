@@ -11,8 +11,7 @@ import {
   FileText, 
   Printer,
   History,
-  User,
-  Tool
+  User
 } from "lucide-react";
 import { formatPrice, cn } from "@/lib/utils";
 import { createMaintenanceReport, updateMaintenanceRequest, updateOrder } from "@/lib/firestore";

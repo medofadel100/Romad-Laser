@@ -8,7 +8,7 @@ import Link from "next/link";
 import { formatPrice } from "@/lib/utils";
 
 interface CartDrawerProps {
-  locale: string;
+  locale: any;
 }
 
 export default function CartDrawer({ locale }: CartDrawerProps) {

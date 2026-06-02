@@ -24,7 +24,7 @@ import { updateOrder } from "@/lib/firestore";
 import { useUIStore } from "@/store/uiStore";
 
 interface OrderDetailClientProps {
-  locale: string;
+  locale: any;
   order: Order;
   customerUser: AppUser | null;
 }

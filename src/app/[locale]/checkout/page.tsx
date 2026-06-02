@@ -4,8 +4,8 @@ import { use, useEffect, useState } from "react";
 import CheckoutPageClient from "@/components/checkout/CheckoutPageClient";
 import { getShippingSettings } from "@/lib/firestore";
 
-export default function CheckoutPage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = use(params);
+export default function CheckoutPage({ params }: { params: { locale: string } }) {
+  const { locale } = params;
   const [shippingSettings, setShippingSettings] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
 

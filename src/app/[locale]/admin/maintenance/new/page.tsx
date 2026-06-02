@@ -21,7 +21,7 @@ export default async function NewMaintenanceReportPage({ params }: Props) {
     getAllUsers()
   ]);
 
-  const serializedUsers = users.map(u => ({
+  const serializedUsers = users.map((u: any) => ({
     uid: u.id || u.uid,
     name: u.name,
     email: u.email,

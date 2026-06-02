@@ -44,7 +44,7 @@ export default function CheckoutPageClient({
   locale, 
   shippingSettings 
 }: { 
-  locale: string;
+  locale: any;
   shippingSettings: { freeShippingThreshold: number; rates: Record<string, number> };
 }) {
   const isAr = locale === "ar";

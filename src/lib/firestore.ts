@@ -604,8 +604,8 @@ export async function getCustomerMaintenanceHistory(customerId: string) {
   return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as import("../types").MaintenanceReport));
 }
 export async function updateUserRole(userId: string, role: string) {
-  const db = getFirestore(app);
-  const userRef = doc(db, "users", userId);
+  const _db = getDbOrThrow();
+  const userRef = doc(_db, "users", userId);
   await updateDoc(userRef, { role });
 }
 

@@ -26,7 +26,7 @@ export default async function StaffPage({ params }: Props) {
     return new Date().toISOString();
   };
 
-  const serializedUsers = users.map(u => ({
+  const serializedUsers = users.map((u: any) => ({
     uid: u.id || u.uid,
     name: u.name,
     email: u.email,

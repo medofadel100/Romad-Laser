@@ -111,7 +111,7 @@ export default async function AdminDashboardPage({ params }: Props) {
     },
     { 
       label: isAr ? "إجمالي المبيعات" : "Total Sales", 
-      value: formatPrice(totalSales, locale), 
+      value: formatPrice(totalSales, locale as any), 
       trend: "+100%", 
       icon: TrendingUp, 
       color: "text-emerald-600" 

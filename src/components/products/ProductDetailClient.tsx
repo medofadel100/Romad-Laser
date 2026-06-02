@@ -18,7 +18,7 @@ export type ProductPreview = Omit<Product, "createdAt" | "updatedAt">;
 interface ProductDetailClientProps {
   product: ProductPreview;
   relatedProducts: ProductPreview[];
-  locale: string;
+  locale: any;
 }
 
 export default function ProductDetailClient({ product, relatedProducts, locale }: ProductDetailClientProps) {

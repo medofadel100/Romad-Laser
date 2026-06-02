@@ -9,8 +9,7 @@ import {
   Plus, 
   Trash2, 
   FileText, 
-  User,
-  Tool
+  User
 } from "lucide-react";
 import { formatPrice, cn } from "@/lib/utils";
 import { createMaintenanceReport, createCustomerProfile } from "@/lib/firestore";

@@ -11,7 +11,7 @@ import type { Product } from "@/types";
 
 interface ProductCardHomeProps {
   product: Product;
-  locale: string;
+  locale: any;
 }
 
 export default function ProductCardHome({ product, locale }: ProductCardHomeProps) {

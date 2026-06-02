@@ -44,7 +44,7 @@ export default async function CustomerProfilePage({ params }: Props) {
     updatedAt: serializeDate(o.updatedAt),
   }));
 
-  const serializedReports = reports.map(r => ({
+  const serializedReports = reports.map((r: any) => ({
     ...r,
     createdAt: serializeDate(r.createdAt),
     reportDate: r.reportDate || serializeDate(r.createdAt),

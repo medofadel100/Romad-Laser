@@ -17,8 +17,8 @@ interface RegisterFormValues {
   password: string;
 }
 
-export default function RegisterPage({ params }: { params: Promise<{ locale?: string }> }) {
-  const { locale: routeLocale } = use(params);
+export default function RegisterPage({ params }: { params: { locale?: string } }) {
+  const { locale: routeLocale } = params;
   const locale = routeLocale === "en" ? "en" : "ar";
   const isAr = locale === "ar";
   const router = useRouter();

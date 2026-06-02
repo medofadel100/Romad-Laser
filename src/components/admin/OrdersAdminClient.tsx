@@ -26,7 +26,7 @@ import type { Order, OrderStatus } from "@/types";
 
 interface OrdersAdminClientProps {
   initialOrders: Order[];
-  locale: string;
+  locale: any;
 }
 
 const statusMap: Record<OrderStatus, { label_ar: string; label_en: string; color: string; icon: any }> = {

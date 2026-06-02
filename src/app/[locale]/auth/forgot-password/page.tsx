@@ -11,8 +11,8 @@ interface FormValues {
   email: string;
 }
 
-export default function ForgotPasswordPage({ params }: { params: Promise<{ locale?: string }> }) {
-  const { locale: routeLocale } = use(params);
+export default function ForgotPasswordPage({ params }: { params: { locale?: string } }) {
+  const { locale: routeLocale } = params;
   const locale = routeLocale === "en" ? "en" : "ar";
   const isAr = locale === "ar";
   const router = useRouter();

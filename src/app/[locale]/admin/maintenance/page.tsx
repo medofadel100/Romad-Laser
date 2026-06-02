@@ -37,14 +37,14 @@ export default async function AdminMaintenancePage({ params }: Props) {
     return new Date().toISOString();
   };
 
-  const requests = rawRequests.map(req => ({
+  const requests = rawRequests.map((req: any) => ({
     ...req,
     createdAt: serializeDate(req.createdAt),
     updatedAt: serializeDate(req.updatedAt),
     scheduledDate: serializeDate(req.scheduledDate),
   }));
 
-  const orderRequests = engineerVisitOrders.map(order => ({
+  const orderRequests = engineerVisitOrders.map((order: any) => ({
     ...order,
     createdAt: serializeDate(order.createdAt),
     updatedAt: serializeDate(order.updatedAt),

@@ -7,7 +7,7 @@ import { useCartStore } from "@/store/cartStore";
 import { formatPrice } from "@/lib/utils";
 
 interface CartPageClientProps {
-  locale: string;
+  locale: any;
 }
 
 export default function CartPageClient({ locale }: CartPageClientProps) {

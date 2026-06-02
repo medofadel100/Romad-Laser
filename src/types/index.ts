@@ -62,7 +62,9 @@ export type PaymentStatus =
 export type ShippingMethod =
   | "public_transport"
   | "courier"
-  | "engineer_visit";
+  | "engineer_visit"
+  | "pickup"
+  | "microbus";
 export type OrderStatus =
   | "pending"
   | "confirmed"

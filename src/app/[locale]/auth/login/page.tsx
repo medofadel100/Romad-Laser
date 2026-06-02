@@ -12,8 +12,8 @@ interface LoginFormValues {
   password: string;
 }
 
-export default function LoginPage({ params }: { params: Promise<{ locale?: string }> }) {
-  const { locale: routeLocale } = use(params);
+export default function LoginPage({ params }: { params: { locale?: string } }) {
+  const { locale: routeLocale } = params;
   const locale = routeLocale === "en" ? "en" : "ar";
   const isAr = locale === "ar";
   const router = useRouter();
