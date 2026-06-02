@@ -1,0 +1,411 @@
+/* ─── Google Fonts ─────────────────────────────────────────────────────────── */
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Inter:wght@400;500;700&display=swap");
+
+@import "tailwindcss";
+
+/* ─── Brand Color Variables ────────────────────────────────────────────────── */
+:root {
+  /* Primary Dark - Deep & Modern */
+  --navy:        #0F1729;
+  --navy-deep:   #0A0F1A;
+  --navy-light:  #1A2642;
+
+  /* Vibrant Accent - Bold & Contemporary */
+  --gold:        #FF6B35;
+  --gold-light:  #FF8C5A;
+  --gold-pale:   #FFE5D9;
+
+  /* Modern Cyan/Teal - Futuristic */
+  --laser:       #00D9FF;
+  --laser-glow:  #00F0FF;
+
+  /* Neutrals */
+  --bg:          #0F1729;
+  --surface:     #1A2642;
+  --text:        #FFFFFF;
+  --text-muted:  #9CA3AF;
+  --border:      #2D3E5F;
+  --section-alt: #0F1729;
+
+  /* Status */
+  --success:     #10B981;
+  --warning:     #F59E0B;
+  --danger:      #FF6B6B;
+}
+
+/* ─── Tailwind Theme Extension ─────────────────────────────────────────────── */
+@theme {
+  --color-navy:        var(--navy);
+  --color-navy-deep:   var(--navy-deep);
+  --color-navy-light:  var(--navy-light);
+  --color-gold:        var(--gold);
+  --color-gold-light:  var(--gold-light);
+  --color-gold-pale:   var(--gold-pale);
+  --color-laser:       var(--laser);
+  --color-laser-glow:  var(--laser-glow);
+  --color-bg:          var(--bg);
+  --color-surface:     var(--surface);
+  --color-romad-text:  var(--text);
+  --color-text-muted:  var(--text-muted);
+  --color-border:      var(--border);
+
+  --font-cairo:  "Cairo", system-ui, sans-serif;
+  --font-inter:  "Inter", system-ui, sans-serif;
+}
+
+/* ─── Base Styles ──────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Cairo", system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text);
+  background-color: var(--bg);
+  background: linear-gradient(135deg, #0A0F1A 0%, #0F1729 50%, #1A2642 100%);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* English locale body font */
+[lang="en"] body,
+[lang="en"] {
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* RTL direction for Arabic */
+[dir="rtl"] {
+  text-align: right;
+}
+
+/* ─── Scrollbar ─────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--gold);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-light);
+}
+
+/* ─── Selection ─────────────────────────────────────────────────────────────── */
+::selection {
+  background: var(--gold-pale);
+  color: var(--navy);
+}
+
+/* ─── Laser Beam Animation (CSS-only diagonal lines) ───────────────────────── */
+@keyframes laser-beam {
+  0%   { transform: translateX(-100%) rotate(-45deg); opacity: 0; }
+  10%  { opacity: 0.3; }
+  90%  { opacity: 0.3; }
+  100% { transform: translateX(200%) rotate(-45deg); opacity: 0; }
+}
+
+@keyframes laser-pulse {
+  0%, 100% { opacity: 0.15; }
+  50%       { opacity: 0.4; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes whatsapp-pulse {
+  0%    { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+  70%   { box-shadow: 0 0 0 12px rgba(37, 211, 102, 0); }
+  100%  { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+@keyframes gold-shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-right {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+
+@keyframes slide-in-left {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0); }
+}
+
+@keyframes skeleton-shimmer {
+  0%   { background-position: -200px 0; }
+  100% { background-position: calc(200px + 100%) 0; }
+}
+
+/* ─── Utility Classes ───────────────────────────────────────────────────────── */
+
+/* Laser beam divider */
+.laser-beam {
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--laser) 30%,
+    var(--gold) 50%,
+    var(--laser) 70%,
+    transparent 100%
+  );
+  animation: gold-shimmer 3s linear infinite;
+  background-size: 200% auto;
+}
+
+/* Dark section noise texture */
+.navy-texture {
+  background-color: var(--navy);
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      rgba(255,255,255,0.015) 0px,
+      rgba(255,255,255,0.015) 1px,
+      transparent 1px,
+      transparent 10px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255,255,255,0.015) 0px,
+      rgba(255,255,255,0.015) 1px,
+      transparent 1px,
+      transparent 10px
+    );
+}
+
+/* Product card hover */
+.product-card-hover {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.product-card-hover:hover {
+  box-shadow: 0 4px 24px rgba(201, 151, 58, 0.18);
+  transform: translateY(-2px);
+}
+
+/* Gold gradient text */
+.gold-gradient-text {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gold-shimmer 4s linear infinite;
+}
+
+/* Skeleton loading */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e0e0e0 50%,
+    #f0f0f0 75%
+  );
+  background-size: 200px 100%;
+  animation: skeleton-shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+/* Fade in animation */
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+
+/* Cart drawer animation */
+.cart-drawer-enter {
+  animation: slide-in-right 0.3s ease-out forwards;
+}
+
+/* Float animation for decorative elements */
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* WhatsApp pulse */
+.whatsapp-pulse {
+  animation: whatsapp-pulse 2s infinite;
+}
+
+/* Star rating colors */
+.star-filled { color: var(--gold); }
+.star-empty  { color: var(--border); }
+
+/* ─── Section Backgrounds ───────────────────────────────────────────────────── */
+.section-white   { background-color: var(--surface); }
+.section-alt     { background-color: var(--section-alt); }
+.section-navy    { background-color: var(--navy); }
+.section-navy-deep { background-color: var(--navy-deep); }
+
+/* ─── Button Base Styles ────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background-color: var(--gold);
+  color: var(--navy-deep);
+  border-color: var(--gold);
+}
+.btn-primary:hover {
+  background-color: var(--gold-light);
+  border-color: var(--gold-light);
+  box-shadow: 0 4px 16px rgba(201, 151, 58, 0.35);
+}
+
+.btn-secondary {
+  background-color: var(--navy);
+  color: #ffffff;
+  border-color: var(--navy);
+}
+.btn-secondary:hover {
+  background-color: var(--navy-light);
+  border-color: var(--navy-light);
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: var(--navy);
+  border-color: transparent;
+}
+.btn-ghost:hover {
+  background-color: rgba(15, 23, 41, 0.05);
+  color: var(--navy-light);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--navy);
+  border-color: var(--border);
+}
+.btn-outline:hover {
+  background-color: var(--navy);
+  color: #ffffff;
+  border-color: var(--navy);
+}
+
+
+.btn-ghost-white {
+  background-color: transparent;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.6);
+}
+.btn-ghost-white:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: #ffffff;
+}
+
+/* ─── Form Styles ───────────────────────────────────────────────────────────── */
+.input {
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 0.5rem;
+  font-size: 0.9375rem;
+  font-family: inherit;
+  color: #0f172a;
+  background-color: #f8fafc;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+}
+
+.input:focus {
+  border-color: #d97706;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15);
+}
+
+.input::placeholder {
+  color: #94a3b8;
+}
+
+.input-error {
+  border-color: var(--danger);
+}
+.input-error:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+}
+
+/* ─── Card Styles ───────────────────────────────────────────────────────────── */
+.card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+/* ─── Badge Styles ──────────────────────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.625rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge-gold {
+  background-color: var(--gold-pale);
+  color: var(--gold);
+}
+
+.badge-navy {
+  background-color: rgba(27, 42, 74, 0.1);
+  color: var(--navy);
+}
+
+.badge-sale {
+  background-color: var(--danger);
+  color: #ffffff;
+}
+
+/* ─── Container ─────────────────────────────────────────────────────────────── */
+.container-romad {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .container-romad { padding: 0 1.5rem; }
+}
+@media (min-width: 1024px) {
+  .container-romad { padding: 0 2rem; }
+}
+
+/* ─── Reduced Motion ────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
