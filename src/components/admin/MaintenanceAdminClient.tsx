@@ -15,7 +15,7 @@ import {
   FileText,
   AlertCircle
 } from "lucide-react";
-import { formatPrice, cn } from "@/lib/utils";
+import { formatPrice, cn, EGYPT_GOVERNORATES } from "@/lib/utils";
 import type { MaintenanceRequest, Order } from "@/types";
 import { useUIStore } from "@/store/uiStore";
 
@@ -178,7 +178,14 @@ export default function MaintenanceAdminClient({ initialRequests, orderRequests,
                       <p className="font-black text-navy text-lg">{order.shippingAddress.name}</p>
                       <div className="flex items-center gap-4 mt-2 text-sm text-text-muted font-bold">
                         <span className="flex items-center gap-1"><Phone size={14} className="text-gold" /> {order.shippingAddress.phone}</span>
-                        <span className="flex items-center gap-1"><MapPin size={14} className="text-gold" /> {order.shippingAddress.governorate}</span>
+                        <span className="flex items-center gap-1">
+                          <MapPin size={14} className="text-gold" />{" "}
+                          {(() => {
+                            const govKey = order.shippingAddress.governorate.toLowerCase();
+                            const govData = EGYPT_GOVERNORATES[govKey];
+                            return govData ? (isAr ? govData.nameAr : govData.nameEn) : order.shippingAddress.governorate;
+                          })()}
+                        </span>
                       </div>
                     </div>
                   </div>

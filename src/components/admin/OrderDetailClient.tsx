@@ -18,7 +18,7 @@ import {
   Building2,
   Layers
 } from "lucide-react";
-import { formatPrice, cn, formatWhatsAppPhone } from "@/lib/utils";
+import { formatPrice, cn, formatWhatsAppPhone, EGYPT_GOVERNORATES } from "@/lib/utils";
 import type { Order, AppUser, OrderStatus } from "@/types";
 import { updateOrder } from "@/lib/firestore";
 import { useUIStore } from "@/store/uiStore";
@@ -359,7 +359,13 @@ export default function OrderDetailClient({ locale, order, customerUser }: Order
               <div className="flex items-start gap-3">
                 <MapPin size={18} className="text-gold mt-1" />
                 <div>
-                  <p className="font-bold text-navy">{order.shippingAddress.governorate}, {order.shippingAddress.city}</p>
+                  <p className="font-bold text-navy">
+                    {(() => {
+                      const govKey = order.shippingAddress.governorate.toLowerCase();
+                      const govData = EGYPT_GOVERNORATES[govKey];
+                      return govData ? (isAr ? govData.nameAr : govData.nameEn) : order.shippingAddress.governorate;
+                    })()}, {order.shippingAddress.city}
+                  </p>
                   <p className="text-sm text-text-muted mt-1 leading-relaxed">{order.shippingAddress.details}</p>
                 </div>
               </div>

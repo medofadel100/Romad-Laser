@@ -20,7 +20,7 @@ import { useCartStore } from "@/store/cartStore";
 import { useUIStore } from "@/store/uiStore";
 import { useAuth } from "@/hooks/useAuth";
 import { createOrder } from "@/lib/firestore";
-import { formatPrice, cn, shippingRates } from "@/lib/utils";
+import { formatPrice, cn, shippingRates, EGYPT_GOVERNORATES } from "@/lib/utils";
 import type { Order } from "@/types";
 
 interface CheckoutFormValues {
@@ -77,6 +77,11 @@ export default function CheckoutPageClient({
       addToast("info", isAr ? "تم تحويل طريقة الدفع إلى انستا باي لأن الميكروباص يتطلب دفعاً مسبقاً" : "Payment switched to Instapay as Microbus requires pre-payment");
     }
   }, [shippingType, paymentMethod, setValue, isAr, addToast]);
+
+  // Reset city when governorate changes
+  useEffect(() => {
+    setValue("city", "");
+  }, [selectedGovernorate, setValue]);
 
   // Redirect if cart is empty
   useEffect(() => {
@@ -320,7 +325,7 @@ export default function CheckoutPageClient({
                     <p className="font-black text-sm uppercase tracking-widest">{isAr ? "عنوان مقر الشركة" : "Company Address"}</p>
                   </div>
                   <p className="font-black text-xl">
-                    {isAr ? "قرية الهياتم - مركز المحلة الكبرى، الغربية" : "Hayatem Village, Mahalla El Kubra, Gharbia"}
+                    {isAr ? "مركز المحلة الكبرى، الغربية" : "Mahalla El Kubra, Gharbia"}
                   </p>
                   <p className="text-sm text-white/60 leading-relaxed italic">
                     {isAr 
@@ -338,49 +343,40 @@ export default function CheckoutPageClient({
                     >
                       <option value="">{isAr ? "اختر المحافظة" : "Select"}</option>
                       {Object.keys(rates).map(govKey => {
-                        const govMap: Record<string, string> = {
-                          cairo: "القاهرة",
-                          giza: "الجيزة",
-                          alexandria: "الإسكندرية",
-                          sharqia: "الشرقية",
-                          dakahlia: "الدقهلية",
-                          beheira: "البحيرة",
-                          minya: "المنيا",
-                          sohag: "سوهاج",
-                          qena: "قنا",
-                          assiut: "أسيوط",
-                          fayoum: "الفيوم",
-                          beni_suef: "بني سويف",
-                          menoufia: "المنوفية",
-                          kafr_el_sheikh: "كفر الشيخ",
-                          damietta: "دمياط",
-                          port_said: "بورسعيد",
-                          ismailia: "الإسماعيلية",
-                          suez: "السويس",
-                          north_sinai: "شمال سيناء",
-                          south_sinai: "جنوب سيناء",
-                          red_sea: "البحر الأحمر",
-                          new_valley: "الوادي الجديد",
-                          matruh: "مطروح",
-                          luxor: "الأقصر",
-                          aswan: "أسوان",
-                        };
+                        const govData = EGYPT_GOVERNORATES[govKey];
+                        const name = govData ? (isAr ? govData.nameAr : govData.nameEn) : govKey;
                         return (
                           <option key={govKey} value={govKey}>
-                            {isAr ? (govMap[govKey] || govKey) : govKey.replace("_", " ").toUpperCase()}
+                            {name}
                           </option>
                         );
                       })}
                     </select>
+                    {errors.governorate && <p className="text-red-500 text-xs mt-1 font-bold">{errors.governorate.message}</p>}
                   </label>
 
                   <label className="block">
                     <span className="text-sm font-black text-navy mb-2 block">{isAr ? "المدينة" : "City"} *</span>
-                    <input
-                      type="text"
+                    <select
                       {...register("city", { required: isAr ? "المدينة مطلوبة" : "City is required" })}
                       className="input w-full p-4 rounded-2xl"
-                    />
+                      disabled={!selectedGovernorate}
+                    >
+                      <option value="">
+                        {!selectedGovernorate 
+                          ? (isAr ? "اختر المحافظة أولاً" : "Select governorate first")
+                          : (isAr ? "اختر المدينة" : "Select City")}
+                      </option>
+                      {selectedGovernorate && EGYPT_GOVERNORATES[selectedGovernorate]?.cities.map((city, idx) => {
+                        const cityName = isAr ? city.ar : city.en;
+                        return (
+                          <option key={idx} value={cityName}>
+                            {cityName}
+                          </option>
+                        );
+                      })}
+                    </select>
+                    {errors.city && <p className="text-red-500 text-xs mt-1 font-bold">{errors.city.message}</p>}
                   </label>
 
                   {shippingType === "courier" && (

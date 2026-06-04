@@ -182,8 +182,8 @@ export default function Footer({ locale }: FooterProps) {
                 <MapPin size={16} className="text-gold flex-shrink-0 mt-0.5" />
                 <span>
                   {isAr
-                    ? "قرية الهياتم - مركز المحلة الكبرى، الغربية"
-                    : "Hayatem Village, Mahalla El Kubra, Gharbia"}
+                    ? "مركز المحلة الكبرى، الغربية"
+                    : "Mahalla El Kubra, Gharbia"}
                 </span>
               </li>
               {phone1 && (

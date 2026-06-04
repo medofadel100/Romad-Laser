@@ -48,7 +48,7 @@ export default function ForgotPasswordPage({ params }: { params: { locale?: stri
     <main className="container-romad py-20">
       <div className="mx-auto max-w-lg rounded-[32px] border border-gray-200 bg-white p-8 shadow-lg">
         <div className="mb-6 text-center">
-          <p className="text-sm font-semibold text-gold mb-2">{isAr ? "نسيت كلمة المرور" : "Forgot Password"}</p>
+          <p className="text-sm font-semibold text-gold-dark mb-2">{isAr ? "نسيت كلمة المرور" : "Forgot Password"}</p>
           <h1 className="text-3xl font-black text-navy">{isAr ? "استرجاع الحساب" : "Reset your account"}</h1>
           <p className="mt-3 text-text-muted">
             {isAr

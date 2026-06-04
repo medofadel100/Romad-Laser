@@ -18,6 +18,8 @@ const governorateNamesAr: Record<string, string> = {
   sharqia: "الشرقية",
   dakahlia: "الدقهلية",
   beheira: "البحيرة",
+  gharbia: "الغربية",
+  qalyubia: "القليوبية",
   minya: "المنيا",
   sohag: "سوهاج",
   qena: "قنا",

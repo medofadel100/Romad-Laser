@@ -11,7 +11,8 @@ import {
   ChevronRight,
   TrendingUp,
   Clock,
-  ArrowUpRight
+  ArrowUpRight,
+  Award
 } from "lucide-react";
 
 import { getAllOrders, getAllProducts } from "@/lib/firestore.server";
@@ -98,6 +99,14 @@ export default async function AdminDashboardPage({ params }: Props) {
       icon: Users,
       color: "bg-navy",
       lightColor: "bg-gray-100 text-navy",
+    },
+    {
+      href: `/${locale}/admin/partners`,
+      label: isAr ? "الشركاء والوكلاء" : "Partners & Agents",
+      desc: isAr ? "إدارة الفنيين والموزعين المعتمدين" : "Manage technicians & distributors",
+      icon: Award,
+      color: "bg-cyan-500",
+      lightColor: "bg-cyan-50 text-cyan-600",
     },
   ];
 

@@ -67,7 +67,11 @@ export async function registerWithEmail(
   password: string,
   phone = "",
   workshopName = "",
-  workshopAddress = ""
+  workshopAddress = "",
+  role: AppUser["role"] = "customer",
+  experienceYears?: number,
+  governorateScope?: string[],
+  companyAffiliated?: boolean
 ) {
   const result = await createUserWithEmailAndPassword(getFirebaseAuth(), email, password);
   const user = result.user;
@@ -76,18 +80,25 @@ export async function registerWithEmail(
   await updateProfile(user, { displayName: name });
 
   // Create user document in Firestore
-  const role: AppUser["role"] = email === "admin@romalaser.com" ? "admin" : "customer";
-  await setDoc(doc(getFirestoreDB(), "users", user.uid), {
+  const finalRole: AppUser["role"] = email === "admin@romalaser.com" ? "admin" : role;
+  
+  const userData: any = {
     uid: user.uid,
     name,
     email,
     phone,
     workshopName,
     workshopAddress,
-    role,
+    role: finalRole,
     addresses: [],
     createdAt: serverTimestamp(),
-  });
+  };
+
+  if (experienceYears !== undefined) userData.experienceYears = experienceYears;
+  if (governorateScope !== undefined) userData.governorateScope = governorateScope;
+  if (companyAffiliated !== undefined) userData.companyAffiliated = companyAffiliated;
+
+  await setDoc(doc(getFirestoreDB(), "users", user.uid), userData);
 
   return user;
 }

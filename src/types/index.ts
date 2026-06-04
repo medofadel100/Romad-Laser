@@ -121,7 +121,7 @@ export interface Order {
 
 // ─── User Types ───────────────────────────────────────────────────────────────
 
-export type UserRole = "admin" | "staff" | "customer";
+export type UserRole = "admin" | "staff" | "customer" | "engineer" | "technician" | "distributor";
 
 export interface Address {
   id: string;
@@ -143,6 +143,10 @@ export interface AppUser {
   role: UserRole;
   addresses: Address[];
   createdAt: Timestamp;
+  avatarUrl?: string;
+  experienceYears?: number;
+  governorateScope?: string[];
+  companyAffiliated?: boolean;
 }
 
 // ─── Review Types ─────────────────────────────────────────────────────────────

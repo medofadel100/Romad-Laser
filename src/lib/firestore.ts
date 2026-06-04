@@ -507,6 +507,8 @@ export async function getShippingSettings() {
         sharqia: 65,
         dakahlia: 65,
         beheira: 65,
+        gharbia: 65,
+        qalyubia: 65,
         minya: 85,
         sohag: 90,
         qena: 95,

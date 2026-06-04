@@ -156,8 +156,8 @@ export default function ContactPageClient({ locale }: { locale: string }) {
                 <MapPin className="text-gold flex-shrink-0 mt-1" />
                 <p className="text-white/80 leading-relaxed">
                   {isAr 
-                    ? "قرية الهياتم - مركز المحلة الكبرى، محافظة الغربية، مصر" 
-                    : "Hayatem Village, Mahalla El Kubra, Gharbia Governorate, Egypt"}
+                    ? "مركز المحلة الكبرى، محافظة الغربية، مصر" 
+                    : "Mahalla El Kubra, Gharbia Governorate, Egypt"}
                 </p>
               </div>
               <div className="flex gap-4 relative z-10">

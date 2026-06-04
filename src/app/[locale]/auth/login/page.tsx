@@ -56,7 +56,7 @@ export default function LoginPage({ params }: { params: { locale?: string } }) {
     <main className="container-romad py-20">
       <div className="mx-auto max-w-lg rounded-[32px] border border-gray-200 bg-white p-8 shadow-lg">
         <div className="mb-8 text-center">
-          <p className="text-sm font-semibold text-gold mb-2">{isAr ? "مرحبا بعودتك" : "Welcome Back"}</p>
+          <p className="text-sm font-semibold text-gold-dark mb-2">{isAr ? "مرحبا بعودتك" : "Welcome Back"}</p>
           <h1 className="text-3xl font-black text-navy">{isAr ? "تسجيل الدخول" : "Sign in"}</h1>
           <p className="mt-3 text-text-muted">
             {isAr ? "سجل دخولك لعرض طلباتك وتحديث حسابك." : "Sign in to view your orders and manage your account."}
@@ -98,14 +98,14 @@ export default function LoginPage({ params }: { params: { locale?: string } }) {
         <div className="mt-6 text-center text-sm text-text-muted space-y-2">
           <p>
             {isAr ? "لا يوجد حساب؟" : "No account?"}{" "}
-            <Link href={`/${locale}/auth/register`} className="font-semibold text-gold hover:text-gold-dark">
+            <Link href={`/${locale}/auth/register`} className="font-semibold text-gold-dark hover:text-gold">
               {isAr ? "إنشاء حساب" : "Create one"}
             </Link>
           </p>
           <p>
             <Link
               href={`/${locale}/auth/forgot-password`}
-              className="font-semibold text-gold hover:text-gold-dark"
+              className="font-semibold text-gold-dark hover:text-gold"
             >
               {isAr ? "نسيت كلمة المرور؟" : "Forgot your password?"}
             </Link>

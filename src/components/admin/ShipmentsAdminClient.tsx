@@ -15,7 +15,7 @@ import {
   FileText
 } from "lucide-react";
 import { updateOrder } from "@/lib/firestore";
-import { formatPrice, cn, formatWhatsAppPhone } from "@/lib/utils";
+import { formatPrice, cn, formatWhatsAppPhone, EGYPT_GOVERNORATES } from "@/lib/utils";
 import { useUIStore } from "@/store/uiStore";
 import type { Order, OrderStatus } from "@/types";
 
@@ -172,7 +172,13 @@ export default function ShipmentsAdminClient({ initialOrders, locale }: Shipment
                     <p className="text-sm font-bold text-gray-500 mb-1 flex items-center gap-1">
                       <MapPin size={14} /> {isAr ? "عنوان الشحن" : "Shipping Address"}
                     </p>
-                    <p className="font-bold text-navy">{order.shippingAddress.governorate}</p>
+                    <p className="font-bold text-navy">
+                      {(() => {
+                        const govKey = order.shippingAddress.governorate.toLowerCase();
+                        const govData = EGYPT_GOVERNORATES[govKey];
+                        return govData ? (isAr ? govData.nameAr : govData.nameEn) : order.shippingAddress.governorate;
+                      })()}
+                    </p>
                     <p className="text-sm text-text-muted mt-1 truncate max-w-xs" title={order.shippingAddress.details}>
                       {order.shippingAddress.city}, {order.shippingAddress.details}
                     </p>

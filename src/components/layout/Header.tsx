@@ -246,11 +246,11 @@ export default function Header({ locale }: HeaderProps) {
                   className="flex items-center gap-2 px-3 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-all"
                 >
                   <User size={18} />
-                  {user && (
-                    <span className="text-sm font-medium hidden xl:block text-white/90">
-                      {userData?.name?.split(" ")[0] || (isAr ? "حسابي" : "Account")}
-                    </span>
-                  )}
+                  <span className="text-sm font-medium hidden xl:block text-white/90">
+                    {user
+                      ? (userData?.name?.split(" ")[0] || (isAr ? "حسابي" : "Account"))
+                      : (isAr ? "تسجيل الدخول" : "Sign In")}
+                  </span>
                 </button>
 
                 {/* Dropdown */}
@@ -265,7 +265,7 @@ export default function Header({ locale }: HeaderProps) {
                         <Link
                           href={`/${safeLocale}/account`}
                           onClick={() => setIsUserMenuOpen(false)}
-                          className="flex items-center gap-2 px-4 py-2 text-sm text-text hover:bg-gold-pale hover:text-navy transition-colors"
+                          className="flex items-center gap-2 px-4 py-2 text-sm text-navy hover:bg-gold-pale hover:text-navy transition-colors"
                         >
                           <User size={15} />
                           {isAr ? "حسابي" : "My Account"}
@@ -273,7 +273,7 @@ export default function Header({ locale }: HeaderProps) {
                         <Link
                           href={`/${safeLocale}/account/orders`}
                           onClick={() => setIsUserMenuOpen(false)}
-                          className="flex items-center gap-2 px-4 py-2 text-sm text-text hover:bg-gold-pale hover:text-navy transition-colors"
+                          className="flex items-center gap-2 px-4 py-2 text-sm text-navy hover:bg-gold-pale hover:text-navy transition-colors"
                         >
                           <Package size={15} />
                           {isAr ? "طلباتي" : "My Orders"}
@@ -301,14 +301,14 @@ export default function Header({ locale }: HeaderProps) {
                         <Link
                           href={`/${safeLocale}/auth/login`}
                           onClick={() => setIsUserMenuOpen(false)}
-                          className="block px-4 py-2 text-sm text-text hover:bg-gold-pale hover:text-navy transition-colors font-medium"
+                          className="block px-4 py-2 text-sm text-navy hover:bg-gold-pale hover:text-navy transition-colors font-medium"
                         >
                           {isAr ? "تسجيل الدخول" : "Sign In"}
                         </Link>
                         <Link
                           href={`/${safeLocale}/auth/register`}
                           onClick={() => setIsUserMenuOpen(false)}
-                          className="block px-4 py-2 text-sm text-gold hover:bg-gold-pale transition-colors font-medium"
+                          className="block px-4 py-2 text-sm text-gold-dark hover:bg-gold-pale transition-colors font-medium"
                         >
                           {isAr ? "إنشاء حساب" : "Create Account"}
                         </Link>
