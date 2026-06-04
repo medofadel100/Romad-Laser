@@ -10,8 +10,7 @@ import type { Category } from "@/types";
 // Fallback categories if Firestore is empty
 const fallbackCategories = [
   { id: "laser-machine", slug: "laser-machine", name_ar: "ماكينة الليزر", name_en: "Laser Machine", productCount: 0, parent: null, order: 1, image: undefined },
-  { id: "cnc-machine", slug: "cnc-machine", name_ar: "ماكينة CNC", name_en: "CNC Machine", productCount: 0, parent: null, order: 2, image: undefined },
-  { id: "spare-parts", slug: "spare-parts", name_ar: "قطع الغيار", name_en: "Spare Parts", productCount: 0, parent: null, order: 3, image: undefined },
+  { id: "co2-machine", slug: "co2-machine", name_ar: "ماكينة CO2", name_en: "CO2 Machine", productCount: 0, parent: null, order: 2, image: undefined },
   { id: "accessories", slug: "accessories", name_ar: "إكسسوارات", name_en: "Accessories", productCount: 0, parent: null, order: 4, image: undefined },
 ];
 

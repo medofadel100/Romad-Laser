@@ -84,7 +84,7 @@ export const useWishlistStore = create<WishlistStore>()(
       },
     }),
     {
-      name: "romad-wishlist",
+      name: "roma-wishlist",
     }
   )
 );

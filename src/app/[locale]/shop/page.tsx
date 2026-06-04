@@ -17,10 +17,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isAr = locale === "ar";
 
   return {
-    title: isAr ? "المتجر | رماد ليزر" : "Shop | Romad Laser",
+    title: isAr ? "المتجر | روما ليزر" : "Shop | Romaα Laser",
     description: isAr
-      ? "تصفح جميع منتجات الليزر وقطع الغيار والـ CNC في متجر رماد ليزر"
-      : "Browse laser, CNC and spare parts in the Romad Laser shop.",
+      ? "تصفح جميع منتجات الليزر وقطع الغيار والـ CO2 في متجر روما ليزر"
+      : "Browse laser, CO2 and spare parts in the Romaα Laser shop.",
   };
 }
 
@@ -63,7 +63,7 @@ export default async function ShopPage({ params }: Props) {
             {isAr ? "المتجر" : "Shop"}
           </p>
           <h1 className="text-3xl lg:text-4xl font-black text-navy">
-            {isAr ? "اكتشف أفضل قطع الليزر وقطع الغيار" : "Discover the best laser and CNC spare parts"}
+            {isAr ? "اكتشف أفضل قطع الليزر وقطع الغيار" : "Discover the best laser and CO2 spare parts"}
           </h1>
           <p className="text-text-muted max-w-2xl mt-3">
             {isAr

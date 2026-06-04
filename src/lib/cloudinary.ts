@@ -11,7 +11,7 @@ export interface CloudinaryUploadResult {
 
 export async function uploadMultipleToCloudinary(
   files: File[],
-  folder = "romad-products"
+  folder = "roma-products"
 ): Promise<CloudinaryUploadResult[]> {
   if (files.length > 15) {
     throw new Error("Maximum 15 images allowed per product");

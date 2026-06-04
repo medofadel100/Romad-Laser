@@ -22,30 +22,30 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: {
       default: isAr
-        ? "رماد ليزر | قطع غيار ماكينات الليزر والـ CNC"
-        : "Romad Laser | Laser & CNC Machine Spare Parts",
-      template: isAr ? "%s | رماد ليزر" : "%s | Romad Laser",
+        ? "روما ليزر | قطع غيار ماكينات الليزر والـ CO2"
+        : "Romaα Laser | Laser & CO2 Machine Spare Parts",
+      template: isAr ? "%s | روما ليزر" : "%s | Romaα Laser",
     },
     description: isAr
-      ? "متخصصون في قطع غيار ماكينات الليزر والـ CNC وخدمات الصيانة الاحترافية. أفضل الأسعار وضمان الجودة في مصر."
-      : "Specialists in laser and CNC machine spare parts and professional maintenance services. Best prices and quality guarantee in Egypt.",
+      ? "متخصصون في قطع غيار ماكينات الليزر والـ CO2 وخدمات الصيانة الاحترافية. أفضل الأسعار وضمان الجودة في مصر."
+      : "Specialists in laser and CO2 machine spare parts and professional maintenance services. Best prices and quality guarantee in Egypt.",
     keywords: isAr
-      ? ["ليزر", "CNC", "قطع غيار", "صيانة", "مصر", "رماد ليزر", "ماكينات"]
-      : ["laser", "CNC", "spare parts", "maintenance", "Egypt", "Romad Laser"],
-    authors: [{ name: "Romad Laser" }],
-    creator: "Romad Laser",
-    metadataBase: new URL("https://romadlaser.com"),
+      ? ["ليزر", "CO2", "قطع غيار", "صيانة", "مصر", "روما ليزر", "ماكينات"]
+      : ["laser", "CO2", "spare parts", "maintenance", "Egypt", "Romaα Laser"],
+    authors: [{ name: "Romaα Laser" }],
+    creator: "Romaα Laser",
+    metadataBase: new URL("https://romalaser.com"),
     openGraph: {
       type: "website",
       locale: isAr ? "ar_EG" : "en_US",
-      url: "https://romadlaser.com",
-      siteName: "Romad Laser | رماد ليزر",
+      url: "https://romalaser.com",
+      siteName: "Romaα Laser | روما ليزر",
       title: isAr
-        ? "رماد ليزر | قطع غيار ماكينات الليزر والـ CNC"
-        : "Romad Laser | Laser & CNC Machine Spare Parts",
+        ? "روما ليزر | قطع غيار ماكينات الليزر والـ CO2"
+        : "Romaα Laser | Laser & CO2 Machine Spare Parts",
       description: isAr
-        ? "متخصصون في قطع غيار ماكينات الليزر والـ CNC وخدمات الصيانة"
-        : "Specialists in laser and CNC machine spare parts and maintenance",
+        ? "متخصصون في قطع غيار ماكينات الليزر والـ CO2 وخدمات الصيانة"
+        : "Specialists in laser and CO2 machine spare parts and maintenance",
     },
     robots: {
       index: true,

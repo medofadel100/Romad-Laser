@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!product) {
     return {
-      title: isAr ? "المنتج غير موجود | رماد ليزر" : "Product not found | Romad Laser",
+      title: isAr ? "المنتج غير موجود | روما ليزر" : "Product not found | Romaα Laser",
     };
   }
 

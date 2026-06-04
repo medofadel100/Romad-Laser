@@ -177,7 +177,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
           {/* Brand Logo as Heading Intro - WITH SHIMMER EFFECT */}
           <div className="flex flex-col mb-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 group">
             <div className="hero-title text-5xl lg:text-6xl font-black tracking-tighter drop-shadow-[0_0_20px_rgba(0,217,255,0.3)]">
-              Romad<span className="text-laser">α</span>
+              Roma<span className="text-laser">α</span>
             </div>
             <div className="text-xs font-black text-white/40 tracking-[0.8em] ms-1 mt-1 uppercase relative overflow-hidden">
               <span className="relative z-10">LASER</span>
@@ -204,7 +204,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
             <span className="block text-laser text-3xl sm:text-4xl lg:text-5xl font-bold drop-shadow-lg" style={{
               textShadow: "0 0 20px rgba(0, 217, 255, 0.8)"
             }}>
-              {isAr ? "ماكينات الليزر والـ CNC" : "Laser & CNC Machines"}
+              {isAr ? "ماكينات الليزر والـ CO2" : "Laser & CO2 Machines"}
             </span>
           </h1>
 
@@ -213,8 +213,8 @@ export default function HeroSection({ locale }: HeroSectionProps) {
             animation: "fadeInUp 1.2s ease-out"
           }}>
             {isAr
-              ? "متخصصون في توفير قطع غيار ماكينات الليزر والـ CNC وتقديم خدمات الصيانة الاحترافية. جودة مضمونة وأسعار تنافسية."
-              : "Specialists in providing laser and CNC machine spare parts and professional maintenance services. Guaranteed quality and competitive prices."}
+              ? "متخصصون في توفير قطع غيار ماكينات الليزر والـ CO2 وتقديم خدمات الصيانة الاحترافية. جودة مضمونة وأسعار تنافسية."
+              : "Specialists in providing laser and CO2 machine spare parts and professional maintenance services. Guaranteed quality and competitive prices."}
           </p>
 
           {/* CTA Buttons with hover effects */}

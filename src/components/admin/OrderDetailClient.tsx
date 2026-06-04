@@ -18,7 +18,7 @@ import {
   Building2,
   Layers
 } from "lucide-react";
-import { formatPrice, cn } from "@/lib/utils";
+import { formatPrice, cn, formatWhatsAppPhone } from "@/lib/utils";
 import type { Order, AppUser, OrderStatus } from "@/types";
 import { updateOrder } from "@/lib/firestore";
 import { useUIStore } from "@/store/uiStore";
@@ -60,8 +60,8 @@ export default function OrderDetailClient({ locale, order, customerUser }: Order
   const generateFullOrderMessage = (statusText?: string) => {
     // Brand Intro
     const intro = isAr 
-      ? `*شركة رماد ليزر - Romad Laser* 🛠️\nمرحباً أ/ ${order.shippingAddress.name}، نتشرف بالتواصل معك بخصوص طلبك رقم #${order.id}\n\n`
-      : `*Romad Laser Company* 🛠️\nHello ${order.shippingAddress.name}, we are contacting you regarding your order #${order.id}\n\n`;
+      ? `*شركة روما ليزر - Romaα Laser* 🛠️\nمرحباً أ/ ${order.shippingAddress.name}، نتشرف بالتواصل معك بخصوص طلبك رقم #${order.id}\n\n`
+      : `*Romaα Laser Company* 🛠️\nHello ${order.shippingAddress.name}, we are contacting you regarding your order #${order.id}\n\n`;
 
     // Status or CTA
     const header = statusText ? `*${statusText}*\n\n` : "";
@@ -82,27 +82,16 @@ export default function OrderDetailClient({ locale, order, customerUser }: Order
 
     // Contact Info
     const contact = isAr
-      ? `*لأي استفسار يمكنك التواصل معنا:* 📞\n01229256173 - 01144599925\n\n*شكراً لثقتك في رماد ليزر.*`
-      : `*For inquiries, contact us:* 📞\n01229256173 - 01144599925\n\n*Thank you for choosing Romad Laser.*`;
+      ? `*لأي استفسار يمكنك التواصل معنا:* 📞\n01229256173 - 01144599925\n\n*شكراً لثقتك في روما ليزر.*`
+      : `*For inquiries, contact us:* 📞\n01229256173 - 01144599925\n\n*Thank you for choosing Romaα Laser.*`;
 
     return intro + header + summary + payment + contact;
   };
 
-  const openWhatsApp = (customMessage?: string) => {
-    const phone = order.shippingAddress.phone.replace(/\D/g, "");
-    const formattedPhone = phone.startsWith("0") ? `2${phone}` : phone;
+  const getWhatsAppLink = (customMessage?: string) => {
+    const formattedPhone = formatWhatsAppPhone(order.shippingAddress.phone);
     const fullMessage = customMessage || generateFullOrderMessage();
-    window.open(`https://wa.me/${formattedPhone}?text=${encodeURIComponent(fullMessage)}`, "_blank");
-  };
-
-  const sendStatusUpdateWhatsApp = () => {
-    const status = statusMap[currentStatus];
-    const statusLabel = isAr ? status.label_ar : status.label_en;
-    const updateText = isAr 
-      ? `تحديث: حالة طلبك أصبحت الآن [ ${statusLabel} ] ✅` 
-      : `Update: Your order status is now [ ${statusLabel} ] ✅`;
-    
-    openWhatsApp(generateFullOrderMessage(updateText));
+    return `https://wa.me/${formattedPhone}?text=${encodeURIComponent(fullMessage)}`;
   };
 
   return (
@@ -171,13 +160,15 @@ export default function OrderDetailClient({ locale, order, customerUser }: Order
             </div>
           </div>
 
-          <button 
-            onClick={() => openWhatsApp()}
-            className="btn h-12 px-6 rounded-2xl bg-[#25D366] text-white hover:bg-[#20ba5a] shadow-lg shadow-green-500/20 flex items-center gap-2 font-bold"
+          <a 
+            href={getWhatsAppLink()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn h-12 px-6 rounded-2xl bg-[#25D366] text-white hover:bg-[#20ba5a] shadow-lg shadow-green-500/20 flex items-center justify-center gap-2 font-bold"
           >
             <MessageSquare size={18} />
             {isAr ? "واتساب" : "WhatsApp"}
-          </button>
+          </a>
         </div>
       </div>
 
@@ -269,12 +260,17 @@ export default function OrderDetailClient({ locale, order, customerUser }: Order
                 <MessageSquare className="text-gold" size={22} />
                 {isAr ? "تحديثات التواصل" : "Communication Updates"}
               </h2>
-              <button 
-                onClick={sendStatusUpdateWhatsApp}
+              <a 
+                href={getWhatsAppLink(generateFullOrderMessage(isAr 
+                  ? `تحديث: حالة طلبك أصبحت الآن [ ${statusMap[currentStatus].label_ar} ] ✅` 
+                  : `Update: Your order status is now [ ${statusMap[currentStatus].label_en} ] ✅`
+                ))}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gold text-sm font-bold hover:underline"
               >
                 {isAr ? "إرسال تحديث بالحالة الحالية" : "Send update with current status"}
-              </button>
+              </a>
             </div>
             
             <div className="p-6 rounded-2xl bg-blue-50 border border-blue-100 flex gap-4">
@@ -332,13 +328,15 @@ export default function OrderDetailClient({ locale, order, customerUser }: Order
                 </div>
               </div>
 
-              <button 
-                onClick={() => openWhatsApp()}
+              <a 
+                href={getWhatsAppLink()}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-full py-4 rounded-2xl bg-navy text-white font-bold hover:bg-navy-deep transition-all flex items-center justify-center gap-2"
               >
                 {isAr ? "تواصل مباشر" : "Direct Contact"}
                 <ArrowRight size={18} className={isAr ? "rotate-180" : ""} />
-              </button>
+              </a>
             </div>
           </div>
 
@@ -428,18 +426,18 @@ export default function OrderDetailClient({ locale, order, customerUser }: Order
 
               {/* Request Payment Screenshot via WhatsApp (If not confirmed and not COD) */}
               {order.paymentMethod !== "cod" && order.paymentStatus !== "confirmed" && (
-                <button
-                  onClick={() => {
-                    const cta = isAr 
-                      ? "⚠️ يرجى إرسال صورة إيصال التحويل (سكرين شوت) لتأكيد الطلب وبدء التجهيز في أسرع وقت."
-                      : "⚠️ Please send a screenshot of the transfer receipt to confirm your order and start processing.";
-                    openWhatsApp(generateFullOrderMessage(cta));
-                  }}
+                <a
+                  href={getWhatsAppLink(generateFullOrderMessage(isAr 
+                    ? "⚠️ يرجى إرسال صورة إيصال التحويل (سكرين شوت) لتأكيد الطلب وبدء التجهيز في أسرع وقت."
+                    : "⚠️ Please send a screenshot of the transfer receipt to confirm your order and start processing."
+                  ))}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-full py-3 rounded-xl bg-[#25D366]/10 text-[#25D366] border border-[#25D366]/20 font-bold text-sm hover:bg-[#25D366]/20 transition-all flex items-center justify-center gap-2"
                 >
                   <MessageSquare size={16} />
                   {isAr ? "طلب إيصال التحويل" : "Request Receipt"}
-                </button>
+                </a>
               )}
               
               {order.paymentScreenshot && (

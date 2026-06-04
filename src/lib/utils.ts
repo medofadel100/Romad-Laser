@@ -142,3 +142,33 @@ export function truncate(text: string, maxLength: number): string {
 export function formatOrderId(id: string): string {
   return `#RL-${id.slice(-6).toUpperCase()}`;
 }
+
+export function formatWhatsAppPhone(phone: string): string {
+  let normalized = phone
+    .replace(/[٠-٩]/g, (d) => (d.charCodeAt(0) - 1632).toString())
+    .replace(/[۰-۹]/g, (d) => (d.charCodeAt(0) - 1776).toString());
+    
+  let clean = normalized.replace(/\D/g, "");
+  
+  if (clean.startsWith("0020")) {
+    clean = clean.slice(2);
+  }
+  
+  if (clean.startsWith("01") && clean.length === 11) {
+    return `2${clean}`;
+  }
+  
+  if (clean.startsWith("1") && clean.length === 10) {
+    return `20${clean}`;
+  }
+  
+  if (clean.startsWith("201") && clean.length === 12) {
+    return clean;
+  }
+  
+  if (clean.startsWith("0")) {
+    return `20${clean.slice(1)}`;
+  }
+  
+  return clean;
+}

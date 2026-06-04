@@ -19,11 +19,11 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
   return {
     title: orderId
       ? isAr
-        ? `تم الطلب #${orderId} | رماد ليزر`
-        : `Order #${orderId} Confirmed | Romad Laser`
+        ? `تم الطلب #${orderId} | روما ليزر`
+        : `Order #${orderId} Confirmed | Romaα Laser`
       : isAr
-      ? "تم الطلب | رماد ليزر"
-      : "Order Confirmed | Romad Laser",
+      ? "تم الطلب | روما ليزر"
+      : "Order Confirmed | Romaα Laser",
   };
 }
 
@@ -44,7 +44,7 @@ export default async function CheckoutSuccessPage({ params, searchParams }: Prop
 
   const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
   const phone1 = process.env.NEXT_PUBLIC_PHONE_1;
-  const email = process.env.NEXT_PUBLIC_BUSINESS_EMAIL || "info@romadlaser.com";
+  const email = process.env.NEXT_PUBLIC_BUSINESS_EMAIL || "info@romalaser.com";
 
   return (
     <main className="container-romad py-16 lg:py-20">

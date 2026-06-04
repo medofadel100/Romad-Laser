@@ -14,10 +14,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const isAr = locale === "ar";
   return {
-    title: isAr ? "بحث المنتجات | رماد ليزر" : "Search products | Romad Laser",
+    title: isAr ? "بحث المنتجات | روما ليزر" : "Search products | Romaα Laser",
     description: isAr
-      ? "ابحث عن جميع منتجات الليزر وقطع الغيار في متجر رماد ليزر"
-      : "Search the full range of laser and CNC products in the Romad Laser shop.",
+      ? "ابحث عن جميع منتجات الليزر وقطع الغيار في متجر روما ليزر"
+      : "Search the full range of laser and CO2 products in the Romaα Laser shop.",
   };
 }
 

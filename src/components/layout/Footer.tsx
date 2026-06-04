@@ -34,7 +34,7 @@ const footerLinks = {
   shop: [
     { href: "/shop", label_ar: "جميع المنتجات", label_en: "All Products" },
     { href: "/shop/laser-machine", label_ar: "ماكينة الليزر", label_en: "Laser Machine" },
-    { href: "/shop/cnc-machine", label_ar: "ماكينة CNC", label_en: "CNC Machine" },
+    { href: "/shop/co2-machine", label_ar: "ماكينة CO2", label_en: "CO2 Machine" },
     { href: "/shop/spare-parts", label_ar: "قطع الغيار", label_en: "Spare Parts" },
   ],
   info: [
@@ -71,7 +71,7 @@ export default function Footer({ locale }: FooterProps) {
             <div className="relative h-10 w-36 mb-4">
               <Image
                 src="/images/logo.png"
-                alt="Romad Laser رماد ليزر"
+                alt="Romaα Laser روما ليزر"
                 fill
                 className="object-contain"
                 sizes="144px"
@@ -79,8 +79,8 @@ export default function Footer({ locale }: FooterProps) {
             </div>
             <p className="text-white/70 text-sm leading-relaxed mb-5">
               {isAr
-                ? "متخصصون في قطع غيار ماكينات الليزر والـ CNC وخدمات الصيانة الاحترافية في مصر"
-                : "Specialists in laser and CNC machine spare parts and professional maintenance services in Egypt"}
+                ? "متخصصون في قطع غيار ماكينات الليزر والـ CO2 وخدمات الصيانة الاحترافية في مصر"
+                : "Specialists in laser and CO2 machine spare parts and professional maintenance services in Egypt"}
             </p>
 
             {/* Social Links */}
@@ -233,7 +233,7 @@ export default function Footer({ locale }: FooterProps) {
       <div className="border-t border-white/10">
         <div className="container-romad py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p className="text-white/50 text-xs text-center sm:text-start">
-            © {currentYear} رماد ليزر — Romad Laser.{" "}
+            © {currentYear} روما ليزر — Romaα Laser.{" "}
             {isAr ? "جميع الحقوق محفوظة" : "All Rights Reserved"}
           </p>
           <p className="text-white/30 text-xs">

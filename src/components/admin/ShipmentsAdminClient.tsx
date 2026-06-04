@@ -15,7 +15,7 @@ import {
   FileText
 } from "lucide-react";
 import { updateOrder } from "@/lib/firestore";
-import { formatPrice, cn } from "@/lib/utils";
+import { formatPrice, cn, formatWhatsAppPhone } from "@/lib/utils";
 import { useUIStore } from "@/store/uiStore";
 import type { Order, OrderStatus } from "@/types";
 
@@ -69,12 +69,12 @@ export default function ShipmentsAdminClient({ initialOrders, locale }: Shipment
     }
   };
 
-  const openWhatsApp = (phone: string, orderId: string, name: string) => {
-    const formattedPhone = phone.startsWith("0") ? `+2${phone}` : phone;
+  const getWhatsAppLink = (phone: string, orderId: string, name: string) => {
+    const formattedPhone = formatWhatsAppPhone(phone);
     const msg = isAr 
-      ? `أهلاً بك أستاذ/ة ${name} من رماد ليزر، بخصوص طلبك رقم #${orderId.slice(-6).toUpperCase()}...`
-      : `Hello ${name} from Romad Laser, regarding your order #${orderId.slice(-6).toUpperCase()}...`;
-    window.open(`https://wa.me/${formattedPhone.replace(/\+/g, "")}?text=${encodeURIComponent(msg)}`, "_blank");
+      ? `أهلاً بك أستاذ/ة ${name} من روما ليزر، بخصوص طلبك رقم #${orderId.slice(-6).toUpperCase()}...`
+      : `Hello ${name} from Romaα Laser, regarding your order #${orderId.slice(-6).toUpperCase()}...`;
+    return `https://wa.me/${formattedPhone}?text=${encodeURIComponent(msg)}`;
   };
 
   return (
@@ -157,12 +157,14 @@ export default function ShipmentsAdminClient({ initialOrders, locale }: Shipment
                     </div>
                     <p className="text-xl font-black text-navy">{order.shippingAddress.name}</p>
                     <div className="flex items-center gap-3 mt-2">
-                      <button 
-                        onClick={() => openWhatsApp(order.shippingAddress.phone, order.id, order.shippingAddress.name)}
+                      <a 
+                        href={getWhatsAppLink(order.shippingAddress.phone, order.id, order.shippingAddress.name)}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="flex items-center gap-1 text-sm font-bold text-green-600 hover:text-green-700 bg-green-50 px-2 py-1 rounded-lg transition-colors"
                       >
                         <MessageCircle size={14} /> {order.shippingAddress.phone}
-                      </button>
+                      </a>
                     </div>
                   </div>
 

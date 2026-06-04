@@ -20,11 +20,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: category
       ? isAr
-        ? `${category.name_ar} | متجر رماد ليزر`
-        : `${category.name_en} | Romad Laser Shop`
+        ? `${category.name_ar} | متجر روما ليزر`
+        : `${category.name_en} | Romaα Laser Shop`
       : isAr
-      ? "التصنيف | رماد ليزر"
-      : "Category | Romad Laser",
+      ? "التصنيف | روما ليزر"
+      : "Category | Romaα Laser",
   };
 }
 
@@ -76,8 +76,8 @@ export default async function CategoryShopPage({ params }: Props) {
         </h1>
         <p className="max-w-2xl mt-3 text-text-muted">
           {isAr
-            ? "اكتشف منتجات مختارة ضمن هذا التصنيف بعناية لتلبية احتياجات أعمال الليزر والـ CNC."
-            : "Discover carefully selected products in this category for laser and CNC applications."}
+            ? "اكتشف منتجات مختارة ضمن هذا التصنيف بعناية لتلبية احتياجات أعمال الليزر والـ CO2."
+            : "Discover carefully selected products in this category for laser and CO2 applications."}
         </p>
       </header>
 

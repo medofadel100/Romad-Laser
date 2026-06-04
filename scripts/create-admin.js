@@ -28,7 +28,7 @@ async function createAdminUser() {
   try {
     // Check if user already exists
     try {
-      await auth.getUserByEmail('admin@romadlaser.com');
+      await auth.getUserByEmail('admin@romalaser.com');
       console.log('Admin user already exists');
       return;
     } catch (error) {
@@ -39,7 +39,7 @@ async function createAdminUser() {
 
     // Create the user in Firebase Auth
     const userRecord = await auth.createUser({
-      email: 'admin@romadlaser.com',
+      email: 'admin@romalaser.com',
       password: 'Admin123!', // Change this password after creation
       displayName: 'Admin User',
     });
@@ -48,14 +48,14 @@ async function createAdminUser() {
 
     // Create the user document in Firestore with admin role
     await db.collection('users').doc(userRecord.uid).set({
-      email: 'admin@romadlaser.com',
+      email: 'admin@romalaser.com',
       name: 'Admin User',
       role: 'admin',
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
     });
 
     console.log('Admin user created successfully with role: admin');
-    console.log('Email: admin@romadlaser.com');
+    console.log('Email: admin@romalaser.com');
     console.log('Password: Admin123! (Please change this immediately)');
   } catch (error) {
     console.error('Error creating admin user:', error);

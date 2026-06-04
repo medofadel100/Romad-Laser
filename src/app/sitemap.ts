@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getProducts, getCategories } from "@/lib/firestore.server";
 
-const BASE_URL = "https://romadlaser.com";
+const BASE_URL = "https://romalaser.com";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages: MetadataRoute.Sitemap = [

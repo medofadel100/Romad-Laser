@@ -23,10 +23,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const isAr = locale === "ar";
   return {
-    title: isAr ? "من نحن | رماد ليزر" : "About Us | Romad Laser",
+    title: isAr ? "من نحن | روما ليزر" : "About Us | Romaα Laser",
     description: isAr 
-      ? "تعرف على رماد ليزر، شريكك الموثوق في قطع غيار ماكينات الليزر والـ CNC في مصر."
-      : "Learn about Romad Laser, your trusted partner for Laser and CNC machine spare parts in Egypt.",
+      ? "تعرف على روما ليزر، شريكك الموثوق في قطع غيار ماكينات الليزر والـ CO2 في مصر."
+      : "Learn about Romaα Laser, your trusted partner for Laser and CO2 machine spare parts in Egypt.",
   };
 }
 
@@ -82,8 +82,8 @@ export default async function AboutPage({ params }: Props) {
             </h1>
             <p className="text-xl text-white/70 leading-relaxed">
               {isAr 
-                ? "رماد ليزر هي المؤسسة الرائدة في مصر المتخصصة في توريد وصيانة ماكينات الليزر والـ CNC، ملتزمون بتقديم أعلى جودة وأفضل خدمة ما بعد البيع."
-                : "Romad Laser is Egypt's leading institution specializing in the supply and maintenance of Laser and CNC machines, committed to delivering peak quality and after-sales service."}
+                ? "روما ليزر هي المؤسسة الرائدة في مصر المتخصصة في توريد وصيانة ماكينات الليزر والـ CO2، ملتزمون بتقديم أعلى جودة وأفضل خدمة ما بعد البيع."
+                : "Romaα Laser is Egypt's leading institution specializing in the supply and maintenance of Laser and CO2 machines, committed to delivering peak quality and after-sales service."}
             </p>
           </div>
         </div>
@@ -111,7 +111,7 @@ export default async function AboutPage({ params }: Props) {
               <div className="aspect-square rounded-[40px] bg-navy overflow-hidden shadow-2xl">
                 <img 
                   src="/images/full%20logo.jpeg" 
-                  alt="Romad Laser Full Logo" 
+                  alt="Romaα Laser Full Logo" 
                   className="w-full h-full object-cover" 
                 />
               </div>
@@ -128,8 +128,8 @@ export default async function AboutPage({ params }: Props) {
               <div className="space-y-6 text-lg text-text-muted leading-relaxed">
                 <p>
                   {isAr 
-                    ? "بدأت رحلة رماد ليزر منذ أكثر من عقد من الزمان في مدينة المحلة الكبرى، قلب الصناعة المصرية. كان هدفنا منذ اليوم الأول هو سد الفجوة في سوق قطع غيار ماكينات الليزر وتوفير بدائل عالية الجودة بأسعار عادلة."
-                    : "Romad Laser's journey began over a decade ago in Mahalla El Kubra, the heart of Egyptian industry. Our goal from day one was to bridge the gap in the laser spare parts market and provide high-quality alternatives at fair prices."}
+                    ? "بدأت رحلة روما ليزر منذ أكثر من عقد من الزمان في مدينة المحلة الكبرى، قلب الصناعة المصرية. كان هدفنا منذ اليوم الأول هو سد الفجوة في سوق قطع غيار ماكينات الليزر وتوفير بدائل عالية الجودة بأسعار عادلة."
+                    : "Romaα Laser's journey began over a decade ago in Mahalla El Kubra, the heart of Egyptian industry. Our goal from day one was to bridge the gap in the laser spare parts market and provide high-quality alternatives at fair prices."}
                 </p>
                 <p>
                   {isAr
@@ -174,7 +174,7 @@ export default async function AboutPage({ params }: Props) {
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="text-gold" />
-                <span className="font-bold">info@romadlaser.com</span>
+                <span className="font-bold">info@romalaser.com</span>
               </div>
             </div>
             <div className="flex flex-col sm:flex-row justify-center gap-4">

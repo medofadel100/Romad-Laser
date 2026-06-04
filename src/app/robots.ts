@@ -19,7 +19,7 @@ export default function robots(): MetadataRoute.Robots {
         ],
       },
     ],
-    sitemap: "https://romadlaser.com/sitemap.xml",
-    host: "https://romadlaser.com",
+    sitemap: "https://romalaser.com/sitemap.xml",
+    host: "https://romalaser.com",
   };
 }

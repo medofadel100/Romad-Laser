@@ -244,7 +244,7 @@ export default function InventoryAdminClient({ locale }: InventoryAdminClientPro
       // 1. Upload new images if any
       let uploadedImages: ProductImage[] = [];
       if (data.images && data.images.length > 0) {
-        const uploads = await uploadMultipleToCloudinary(Array.from(data.images), "romad-products");
+        const uploads = await uploadMultipleToCloudinary(Array.from(data.images), "roma-products");
         uploadedImages = uploads.map(u => ({
           url: u.url,
           publicId: u.publicId,
@@ -680,7 +680,7 @@ export default function InventoryAdminClient({ locale }: InventoryAdminClientPro
                         type="text" 
                         {...register("sku", { required: true })} 
                         className="input w-full py-2 font-mono uppercase bg-white border-gray-100 focus:border-gold" 
-                        placeholder="ROMAD-001..."
+                        placeholder="ROMA-001..."
                       />
                     </div>
                   </div>

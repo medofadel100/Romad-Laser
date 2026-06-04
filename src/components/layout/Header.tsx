@@ -150,7 +150,7 @@ export default function Header({ locale }: HeaderProps) {
             <Link
               href={`/${safeLocale}`}
               className="flex items-center gap-2 flex-shrink-0"
-              aria-label="Romad Laser - الرئيسية"
+              aria-label="Romaα Laser - الرئيسية"
             >
               <div className="relative">
                 <div className="text-2xl lg:text-3xl font-black tracking-tight" style={{
@@ -161,7 +161,7 @@ export default function Header({ locale }: HeaderProps) {
                   textShadow: "0 0 30px rgba(0, 217, 255, 0.6)",
                   filter: "drop-shadow(0 0 10px rgba(255, 107, 53, 0.5))"
                 }}>
-                  Romad<span style={{ color: "#00D9FF" }}>α</span>
+                  Roma<span style={{ color: "#00D9FF" }}>α</span>
                 </div>
                 <div className="text-xs font-bold text-laser mt-1">LASER</div>
               </div>

@@ -9,10 +9,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const isAr = locale === "ar";
   return {
-    title: isAr ? "تواصل معنا | رماد ليزر" : "Contact Us | Romad Laser",
+    title: isAr ? "تواصل معنا | روما ليزر" : "Contact Us | Romaα Laser",
     description: isAr 
-      ? "تواصل مع فريق رماد ليزر للدعم الفني، الاستفسارات، أو طلبات الصيانة."
-      : "Contact the Romad Laser team for technical support, inquiries, or maintenance requests.",
+      ? "تواصل مع فريق روما ليزر للدعم الفني، الاستفسارات، أو طلبات الصيانة."
+      : "Contact the Romaα Laser team for technical support, inquiries, or maintenance requests.",
   };
 }
 

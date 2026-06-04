@@ -76,7 +76,7 @@ export async function registerWithEmail(
   await updateProfile(user, { displayName: name });
 
   // Create user document in Firestore
-  const role: AppUser["role"] = email === "admin@romadlaser.com" ? "admin" : "customer";
+  const role: AppUser["role"] = email === "admin@romalaser.com" ? "admin" : "customer";
   await setDoc(doc(getFirestoreDB(), "users", user.uid), {
     uid: user.uid,
     name,

@@ -14,8 +14,8 @@ const features = [
     icon: Wrench,
     title_ar: "صيانة احترافية",
     title_en: "Professional Maintenance",
-    desc_ar: "فريق متخصص من المهندسين لصيانة وإصلاح ماكينات الليزر والـ CNC في موقعك",
-    desc_en: "Specialized engineering team for laser and CNC machine maintenance and repair at your location",
+    desc_ar: "فريق متخصص من المهندسين لصيانة وإصلاح ماكينات الليزر والـ CO2 في موقعك",
+    desc_en: "Specialized engineering team for laser and CO2 machine maintenance and repair at your location",
     color: "text-navy bg-navy/5",
     accent: "#1B2A4A",
   },
@@ -55,15 +55,15 @@ export default function WhyUs({ locale }: WhyUsProps) {
         {/* Header */}
         <div className="text-center mb-14">
           <div className="inline-block px-4 py-1.5 rounded-full bg-white/10 text-white/80 text-sm font-semibold mb-3 border border-white/20">
-            {isAr ? "لماذا رماد ليزر؟" : "Why Romad Laser?"}
+            {isAr ? "لماذا روما ليزر؟" : "Why Romaα Laser?"}
           </div>
           <h2 className="text-3xl lg:text-4xl font-black text-white mb-3">
             {isAr ? "ثق في الخبراء" : "Trust the Experts"}
           </h2>
           <p className="text-white/60 max-w-xl mx-auto">
             {isAr
-              ? "نقدم لك أفضل الحلول لقطع غيار ماكينات الليزر والـ CNC مع خدمة صيانة احترافية"
-              : "We offer you the best solutions for laser and CNC machine spare parts with professional maintenance service"}
+              ? "نقدم لك أفضل الحلول لقطع غيار ماكينات الليزر والـ CO2 مع خدمة صيانة احترافية"
+              : "We offer you the best solutions for laser and CO2 machine spare parts with professional maintenance service"}
           </p>
         </div>
 

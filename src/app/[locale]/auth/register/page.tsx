@@ -42,7 +42,7 @@ export default function RegisterPage({ params }: { params: { locale?: string } }
     setIsSubmitting(true);
     try {
       // Use provided email or generate a fallback based on phone
-      const finalEmail = values.email?.trim() || `${values.phone.replace(/[^0-9]/g, "")}@romad-user.com`;
+      const finalEmail = values.email?.trim() || `${values.phone.replace(/[^0-9]/g, "")}@roma-user.com`;
       
       await registerWithEmail(
         `${values.firstName} ${values.lastName}`.trim(),
@@ -65,7 +65,7 @@ export default function RegisterPage({ params }: { params: { locale?: string } }
     <main className="container-romad py-20">
       <div className="mx-auto max-w-lg rounded-[32px] border border-gray-200 bg-white p-8 shadow-lg">
         <div className="mb-8 text-center">
-          <p className="text-sm font-semibold text-gold mb-2">{isAr ? "انضم إلى رماد ليزر" : "Join Romad Laser"}</p>
+          <p className="text-sm font-semibold text-gold mb-2">{isAr ? "انضم إلى روما ليزر" : "Join Romaα Laser"}</p>
           <h1 className="text-3xl font-black text-navy">{isAr ? "إنشاء حساب" : "Create account"}</h1>
           <p className="mt-3 text-text-muted">
             {isAr ? "أنشئ حسابك لتتبع الطلبات وإدارة المفضلة." : "Create an account to track orders and manage your wishlist."}

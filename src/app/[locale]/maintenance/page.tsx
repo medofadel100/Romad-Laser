@@ -9,10 +9,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const isAr = locale === "ar";
   return {
-    title: isAr ? "طلب صيانة وزيارة هندسية | رماد ليزر" : "Request Maintenance Visit | Romad Laser",
+    title: isAr ? "طلب صيانة وزيارة هندسية | روما ليزر" : "Request Maintenance Visit | Romaα Laser",
     description: isAr 
-      ? "اطلب زيارة مهندس مختص لتشخيص أعطال ماكينات الليزر والـ CNC وصيانتها بأفضل جودة."
-      : "Request a specialist engineer visit for diagnosing and maintaining laser and CNC machines.",
+      ? "اطلب زيارة مهندس مختص لتشخيص أعطال ماكينات الليزر والـ CO2 وصيانتها بأفضل جودة."
+      : "Request a specialist engineer visit for diagnosing and maintaining laser and CO2 machines.",
   };
 }
 
