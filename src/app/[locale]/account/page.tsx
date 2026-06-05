@@ -9,9 +9,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const isAr = locale === "ar";
   return {
-    title: isAr ? "حسابي | روما ليزر" : "My Account | Romaα Laser",
+    title: isAr ? "حسابي | روماد ليزر" : "My Account | Romaα Laser",
     description: isAr
-      ? "تصفح لوحة حسابك في روما ليزر: تحديث بياناتك وطلباتي والمفضلة."
+      ? "تصفح لوحة حسابك في روماد ليزر: تحديث بياناتك وطلباتي والمفضلة."
       : "Browse your Romaα Laser account dashboard: update your info, orders, and wishlist.",
     robots: { index: false },
   };

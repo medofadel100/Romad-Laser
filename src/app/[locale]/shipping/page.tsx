@@ -2,7 +2,7 @@ import { Truck, ShieldCheck, Clock, MapPin } from "lucide-react";
 import { shippingRates, formatPrice } from "@/lib/utils";
 
 export const metadata = {
-  title: "سياسة الشحن | روما ليزر",
+  title: "سياسة الشحن | روماد ليزر",
   description: "تعرف على أسعار ومواعيد الشحن لجميع محافظات مصر",
 };
 

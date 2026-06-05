@@ -20,10 +20,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: category
       ? isAr
-        ? `${category.name_ar} | متجر روما ليزر`
+        ? `${category.name_ar} | متجر روماد ليزر`
         : `${category.name_en} | Romaα Laser Shop`
       : isAr
-      ? "التصنيف | روما ليزر"
+      ? "التصنيف | روماد ليزر"
       : "Category | Romaα Laser",
   };
 }

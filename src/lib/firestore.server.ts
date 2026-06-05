@@ -1,9 +1,34 @@
 import type { Product, Category, Order, AppUser } from "@/types";
+import * as admin from "firebase-admin";
 
 const PROJECT_ID = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
 const BASE_URL = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents`;
 
 const PRODUCTS_PER_PAGE = 12;
+
+let adminDb: any = null;
+
+// Initialize Firebase Admin SDK if service account is available on the server
+if (typeof window === "undefined" && !admin.apps.length) {
+  const privateKey = process.env.FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY;
+  const clientEmail = process.env.FIREBASE_SERVICE_ACCOUNT_CLIENT_EMAIL;
+  const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
+
+  if (privateKey && clientEmail && projectId) {
+    try {
+      admin.initializeApp({
+        credential: admin.credential.cert({
+          projectId,
+          clientEmail,
+          privateKey: privateKey.replace(/\\n/g, "\n"),
+        }),
+      });
+      adminDb = admin.firestore();
+    } catch (error) {
+      console.error("Error initializing Firebase Admin in firestore.server.ts:", error);
+    }
+  }
+}
 
 export type PaginatedProducts = {
   products: Product[];
@@ -36,6 +61,29 @@ export async function fetchFirestore(path: string, options: any = {}) {
     console.error("Response text preview:", text.slice(0, 500));
     throw new Error(`Failed to parse Firestore response: ${err.message}`);
   }
+}
+
+// Optimized structured REST query helper
+export async function runStructuredQuery(queryBody: any) {
+  const url = `${BASE_URL}:runQuery`;
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(queryBody),
+    next: { revalidate: 0 },
+  });
+
+  const text = await response.text();
+  if (!response.ok) {
+    throw new Error(`Firestore runQuery REST API error: ${text}`);
+  }
+
+  const results = JSON.parse(text);
+  return (results || [])
+    .filter((r: any) => r.document)
+    .map((r: any) => mapRestDoc(r.document));
 }
 
 export function mapRestDoc(doc: any) {
@@ -72,36 +120,166 @@ function unwrapValue(value: any): any {
 }
 
 export async function getAllProducts() {
-  const data = await fetchFirestore("/products?pageSize=100");
-  const products = (data.documents || []).map(mapRestDoc) as Product[];
-  
-  return products
-    .filter((p) => p.isActive !== false)
-    .sort((a, b) => {
+  if (adminDb) {
+    try {
+      const snapshot = await adminDb
+        .collection("products")
+        .where("isActive", "==", true)
+        .get();
+      const products = snapshot.docs.map((doc: any) => ({ id: doc.id, ...doc.data() })) as Product[];
+      
+      return products.sort((a, b) => {
+        const timeA = a.createdAt ? new Date(a.createdAt as any).getTime() : 0;
+        const timeB = b.createdAt ? new Date(b.createdAt as any).getTime() : 0;
+        return timeB - timeA;
+      });
+    } catch (error) {
+      console.error("Error fetching all products using firebase-admin:", error);
+    }
+  }
+
+  // Fallback to optimized REST structuredQuery without orderBy to avoid requiring composite indexes
+  try {
+    const products = await runStructuredQuery({
+      structuredQuery: {
+        from: [{ collectionId: "products" }],
+        where: {
+          fieldFilter: {
+            field: { fieldPath: "isActive" },
+            op: "EQUAL",
+            value: { booleanValue: true },
+          },
+        },
+      },
+    }) as Product[];
+
+    return products.sort((a, b) => {
       const timeA = a.createdAt ? new Date(a.createdAt as any).getTime() : 0;
       const timeB = b.createdAt ? new Date(b.createdAt as any).getTime() : 0;
       return timeB - timeA;
     });
+  } catch (error) {
+    console.error("Error fetching all products using runQuery REST:", error);
+    // Ultimate fallback
+    const data = await fetchFirestore("/products?pageSize=100");
+    const products = (data.documents || []).map(mapRestDoc) as Product[];
+    
+    return products
+      .filter((p) => p.isActive !== false)
+      .sort((a, b) => {
+        const timeA = a.createdAt ? new Date(a.createdAt as any).getTime() : 0;
+        const timeB = b.createdAt ? new Date(b.createdAt as any).getTime() : 0;
+        return timeB - timeA;
+      });
+  }
 }
 
 export async function getProducts(categoryId?: string): Promise<PaginatedProducts> {
-  const all = await getAllProducts();
-  let filtered = all;
-  
-  if (categoryId) {
-    filtered = all.filter((p) => p.categories?.includes(categoryId));
+  if (adminDb) {
+    try {
+      let q = adminDb.collection("products").where("isActive", "==", true);
+      if (categoryId) {
+        q = q.where("categories", "array-contains", categoryId);
+      }
+      const snapshot = await q.get();
+      const products = snapshot.docs.map((doc: any) => ({ id: doc.id, ...doc.data() })) as Product[];
+      
+      products.sort((a, b) => {
+        const timeA = a.createdAt ? new Date(a.createdAt as any).getTime() : 0;
+        const timeB = b.createdAt ? new Date(b.createdAt as any).getTime() : 0;
+        return timeB - timeA;
+      });
+
+      const paginated = products.slice(0, PRODUCTS_PER_PAGE);
+      const hasMore = products.length > PRODUCTS_PER_PAGE;
+
+      return {
+        products: paginated,
+        lastVisible: undefined,
+        hasMore,
+      };
+    } catch (error) {
+      console.error("Error in getProducts using Admin SDK:", error);
+    }
   }
 
-  const paginated = filtered.slice(0, PRODUCTS_PER_PAGE);
+  // Fallback to runQuery REST (without orderBy to remain composite index-independent)
+  try {
+    const filters: any[] = [
+      {
+        fieldFilter: {
+          field: { fieldPath: "isActive" },
+          op: "EQUAL",
+          value: { booleanValue: true },
+        },
+      },
+    ];
 
-  return {
-    products: paginated,
-    lastVisible: undefined,
-    hasMore: filtered.length > PRODUCTS_PER_PAGE,
-  };
+    if (categoryId) {
+      filters.push({
+        fieldFilter: {
+          field: { fieldPath: "categories" },
+          op: "ARRAY_CONTAINS",
+          value: { stringValue: categoryId },
+        },
+      });
+    }
+
+    const products = await runStructuredQuery({
+      structuredQuery: {
+        from: [{ collectionId: "products" }],
+        where: {
+          compositeFilter: {
+            op: "AND",
+            filters,
+          },
+        },
+      },
+    }) as Product[];
+
+    // Sort in application memory
+    products.sort((a, b) => {
+      const timeA = a.createdAt ? new Date(a.createdAt as any).getTime() : 0;
+      const timeB = b.createdAt ? new Date(b.createdAt as any).getTime() : 0;
+      return timeB - timeA;
+    });
+
+    const hasMore = products.length > PRODUCTS_PER_PAGE;
+    const slicedProducts = products.slice(0, PRODUCTS_PER_PAGE);
+
+    return {
+      products: slicedProducts,
+      lastVisible: undefined,
+      hasMore,
+    };
+  } catch (error) {
+    console.error("Error in getProducts using runQuery REST:", error);
+    const all = await getAllProducts();
+    let filtered = all;
+    
+    if (categoryId) {
+      filtered = all.filter((p) => p.categories?.includes(categoryId));
+    }
+    const paginated = filtered.slice(0, PRODUCTS_PER_PAGE);
+    
+    return {
+      products: paginated,
+      lastVisible: undefined,
+      hasMore: filtered.length > PRODUCTS_PER_PAGE,
+    };
+  }
 }
 
 export async function getCategories() {
+  if (adminDb) {
+    try {
+      const snapshot = await adminDb.collection("categories").orderBy("order", "asc").get();
+      return snapshot.docs.map((doc: any) => ({ id: doc.id, ...doc.data() })) as Category[];
+    } catch (error) {
+      console.error("Error fetching categories using admin SDK:", error);
+    }
+  }
+
   const data = await fetchFirestore("/categories?pageSize=100");
   const categories = (data.documents || []).map(mapRestDoc) as Category[];
   
@@ -114,6 +292,20 @@ export async function getCategoryBySlug(slug: string) {
 }
 
 export async function getProductBySlug(slug: string) {
+  if (adminDb) {
+    try {
+      const snapshot = await adminDb
+        .collection("products")
+        .where("slug", "==", slug)
+        .limit(1)
+        .get();
+      if (snapshot.empty) return null;
+      return { id: snapshot.docs[0].id, ...snapshot.docs[0].data() } as Product;
+    } catch (error) {
+      console.error("Error fetching product by slug using admin SDK:", error);
+    }
+  }
+
   const products = await getAllProducts();
   return products.find((p) => p.slug === slug) || null;
 }
@@ -131,6 +323,18 @@ export async function searchProducts(searchTerm: string) {
 }
 
 export async function getOrderById(orderId: string) {
+  if (adminDb) {
+    try {
+      const doc = await adminDb.collection("orders").doc(orderId).get();
+      if (doc.exists) {
+        return { id: doc.id, ...doc.data() } as Order;
+      }
+      return null;
+    } catch (error) {
+      console.error("Error fetching order by ID using admin SDK:", error);
+    }
+  }
+
   try {
     const doc = await fetchFirestore(`/orders/${orderId}`);
     return mapRestDoc(doc) as Order;
@@ -141,6 +345,17 @@ export async function getOrderById(orderId: string) {
 }
 
 export async function getShippingSettings() {
+  if (adminDb) {
+    try {
+      const doc = await adminDb.collection("settings").document("shipping").get();
+      if (doc.exists) {
+        return doc.data() as { freeShippingThreshold: number; rates: Record<string, number> };
+      }
+    } catch (error) {
+      console.error("Error fetching shipping settings using admin SDK:", error);
+    }
+  }
+
   try {
     const doc = await fetchFirestore("/settings/shipping");
     return mapRestDoc(doc) as { freeShippingThreshold: number; rates: Record<string, number> };
@@ -181,6 +396,15 @@ export async function getShippingSettings() {
 }
 
 export async function getAllOrders() {
+  if (adminDb) {
+    try {
+      const snapshot = await adminDb.collection("orders").orderBy("createdAt", "desc").get();
+      return snapshot.docs.map((doc: any) => ({ id: doc.id, ...doc.data() })) as Order[];
+    } catch (error) {
+      console.error("Error fetching all orders using admin SDK:", error);
+    }
+  }
+
   try {
     const data = await fetchFirestore("/orders?pageSize=1000");
     const orders = (data.documents || []).map(mapRestDoc) as Order[];
@@ -196,13 +420,82 @@ export async function getAllOrders() {
 }
 
 export async function getFeaturedProducts(limitCount: number = 8) {
-  const products = await getAllProducts();
-  return products
-    .filter((p) => p.isFeatured === true)
-    .slice(0, limitCount);
+  if (adminDb) {
+    try {
+      const snapshot = await adminDb
+        .collection("products")
+        .where("isActive", "==", true)
+        .where("isFeatured", "==", true)
+        .get();
+      const products = snapshot.docs.map((doc: any) => ({ id: doc.id, ...doc.data() })) as Product[];
+      
+      return products
+        .sort((a, b) => {
+          const timeA = a.createdAt ? new Date(a.createdAt as any).getTime() : 0;
+          const timeB = b.createdAt ? new Date(b.createdAt as any).getTime() : 0;
+          return timeB - timeA;
+        })
+        .slice(0, limitCount);
+    } catch (error) {
+      console.error("Error fetching featured products using admin SDK:", error);
+    }
+  }
+
+  // REST API fallback
+  try {
+    const products = await runStructuredQuery({
+      structuredQuery: {
+        from: [{ collectionId: "products" }],
+        where: {
+          compositeFilter: {
+            op: "AND",
+            filters: [
+              {
+                fieldFilter: {
+                  field: { fieldPath: "isActive" },
+                  op: "EQUAL",
+                  value: { booleanValue: true },
+                },
+              },
+              {
+                fieldFilter: {
+                  field: { fieldPath: "isFeatured" },
+                  op: "EQUAL",
+                  value: { booleanValue: true },
+                },
+              },
+            ],
+          },
+        },
+      },
+    }) as Product[];
+
+    return products
+      .sort((a, b) => {
+        const timeA = a.createdAt ? new Date(a.createdAt as any).getTime() : 0;
+        const timeB = b.createdAt ? new Date(b.createdAt as any).getTime() : 0;
+        return timeB - timeA;
+      })
+      .slice(0, limitCount);
+  } catch (error) {
+    console.error("Error fetching featured products using runQuery REST:", error);
+    const products = await getAllProducts();
+    return products
+      .filter((p) => p.isFeatured === true)
+      .slice(0, limitCount);
+  }
 }
 
 export async function getAllUsers() {
+  if (adminDb) {
+    try {
+      const snapshot = await adminDb.collection("users").orderBy("createdAt", "desc").get();
+      return snapshot.docs.map((doc: any) => ({ uid: doc.id, ...doc.data() })) as AppUser[];
+    } catch (error) {
+      console.error("Error fetching all users using admin SDK:", error);
+    }
+  }
+
   try {
     const data = await fetchFirestore("/users?pageSize=1000");
     if (!data.documents) return [];
@@ -223,6 +516,18 @@ export async function getUserById(uid: string) {
     };
   }
 
+  if (adminDb) {
+    try {
+      const doc = await adminDb.collection("users").doc(uid).get();
+      if (doc.exists) {
+        return { uid: doc.id, ...doc.data() } as AppUser;
+      }
+      return null;
+    } catch (error) {
+      console.error(`Error fetching user ${uid} using admin SDK:`, error);
+    }
+  }
+
   try {
     const doc = await fetchFirestore(`/users/${uid}`);
     return mapRestDoc(doc);
@@ -235,6 +540,15 @@ export async function getUserById(uid: string) {
 }
 
 export async function getAllMaintenanceRequests() {
+  if (adminDb) {
+    try {
+      const snapshot = await adminDb.collection("maintenance_requests").orderBy("createdAt", "desc").get();
+      return snapshot.docs.map((doc: any) => ({ id: doc.id, ...doc.data() })) as any[];
+    } catch (error) {
+      console.error("Error fetching maintenance requests using admin SDK:", error);
+    }
+  }
+
   try {
     const data = await fetchFirestore("/maintenance_requests");
     if (!data.documents) return [];
@@ -251,8 +565,20 @@ export async function getAllMaintenanceRequests() {
 }
 
 export async function getCustomerMaintenanceHistory(customerId: string) {
+  if (adminDb) {
+    try {
+      const snapshot = await adminDb
+        .collection("maintenance_reports")
+        .where("customerId", "==", customerId)
+        .orderBy("createdAt", "desc")
+        .get();
+      return snapshot.docs.map((doc: any) => ({ id: doc.id, ...doc.data() })) as any[];
+    } catch (error) {
+      console.error("Error fetching customer maintenance history using admin SDK:", error);
+    }
+  }
+
   try {
-    // In REST API, filtering requires structuredQuery, but for simplicity we can fetch all reports and filter
     const data = await fetchFirestore("/maintenance_reports?pageSize=1000");
     if (!data.documents) return [];
     

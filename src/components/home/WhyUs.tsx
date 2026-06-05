@@ -55,7 +55,7 @@ export default function WhyUs({ locale }: WhyUsProps) {
         {/* Header */}
         <div className="text-center mb-14">
           <div className="inline-block px-4 py-1.5 rounded-full bg-white/10 text-white/80 text-sm font-semibold mb-3 border border-white/20">
-            {isAr ? "لماذا روما ليزر؟" : "Why Romaα Laser?"}
+            {isAr ? "لماذا روماد ليزر؟" : "Why Romaα Laser?"}
           </div>
           <h2 className="text-3xl lg:text-4xl font-black text-white mb-3">
             {isAr ? "ثق في الخبراء" : "Trust the Experts"}

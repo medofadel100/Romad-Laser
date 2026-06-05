@@ -91,7 +91,7 @@ export default function RegisterPage({ params }: { params: { locale?: string } }
     <main className="container-romad py-20">
       <div className="mx-auto max-w-lg rounded-[32px] border border-gray-200 bg-white p-8 shadow-lg">
         <div className="mb-8 text-center">
-          <p className="text-sm font-semibold text-gold-dark mb-2">{isAr ? "انضم إلى روما ليزر" : "Join Romaα Laser"}</p>
+          <p className="text-sm font-semibold text-gold-dark mb-2">{isAr ? "انضم إلى روماد ليزر" : "Join Romaα Laser"}</p>
           <h1 className="text-3xl font-black text-navy">{isAr ? "إنشاء حساب جديد" : "Create account"}</h1>
           <p className="mt-3 text-text-muted">
             {isAr ? "أنشئ حسابك لتتبع الطلبات أو الانضمام كشريك نجاح معنا." : "Create your account to track orders or join us as a partner."}
@@ -193,7 +193,7 @@ export default function RegisterPage({ params }: { params: { locale?: string } }
                 <span className="text-sm font-bold text-navy">{isAr ? "التسجيل كفني معتمد لدى الشركة" : "Register as company-affiliated technician"}</span>
                 <p className="text-xs text-text-muted mt-1 leading-relaxed">
                   {isAr
-                    ? "سنقوم بتكليفك بزيارات التركيب، الصيانة، والدعم الفني لعملاء روما ليزر في نطاق عملك، وتكون شريك نجاح معتمد معنا!"
+                    ? "سنقوم بتكليفك بزيارات التركيب، الصيانة، والدعم الفني لعملاء روماد ليزر في نطاق عملك، وتكون شريك نجاح معتمد معنا!"
                     : "We will assign you to installation, maintenance, and technical support visits for Romaα Laser customers in your work scope!"}
                 </p>
               </div>

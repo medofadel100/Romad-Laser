@@ -72,7 +72,7 @@ export default function ShipmentsAdminClient({ initialOrders, locale }: Shipment
   const getWhatsAppLink = (phone: string, orderId: string, name: string) => {
     const formattedPhone = formatWhatsAppPhone(phone);
     const msg = isAr 
-      ? `أهلاً بك أستاذ/ة ${name} من روما ليزر، بخصوص طلبك رقم #${orderId.slice(-6).toUpperCase()}...`
+      ? `أهلاً بك أستاذ/ة ${name} من روماد ليزر، بخصوص طلبك رقم #${orderId.slice(-6).toUpperCase()}...`
       : `Hello ${name} from Romaα Laser, regarding your order #${orderId.slice(-6).toUpperCase()}...`;
     return `https://wa.me/${formattedPhone}?text=${encodeURIComponent(msg)}`;
   };

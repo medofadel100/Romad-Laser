@@ -28,13 +28,14 @@ service cloud.firestore {
 
     // Orders: user can read own, admin/staff read all, anyone can create
     match /orders/{id} {
-      allow read: if request.auth != null && (
+      allow get: if (request.auth != null && (
         resource.data.userId == request.auth.uid || isStaff()
-      ) || resource.data.userId == null; // Allow guest order read with order ID
+      )) || resource.data.userId == null; // Allow guest order read with order ID
+      allow list: if request.auth != null && isStaff();
       allow create: if true; // Allow guest checkout
       allow update: if isStaff() ||
         (request.auth != null && resource.data.userId == request.auth.uid &&
-         request.resource.data.diff(resource.data).affectedKeys().hasOnly(['paymentScreenshot', 'paymentStatus', 'updatedAt']));
+         request.resource.data.diff(resource.data).affectedKeys().hasOnly(['paymentScreenshot', 'updatedAt']));
     }
 
     // Users: user can read/write own data, admin can read all

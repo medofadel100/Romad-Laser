@@ -60,7 +60,7 @@ export default function OrderDetailClient({ locale, order, customerUser }: Order
   const generateFullOrderMessage = (statusText?: string) => {
     // Brand Intro
     const intro = isAr 
-      ? `*شركة روما ليزر - Romaα Laser* 🛠️\nمرحباً أ/ ${order.shippingAddress.name}، نتشرف بالتواصل معك بخصوص طلبك رقم #${order.id}\n\n`
+      ? `*شركة روماد ليزر - Romaα Laser* 🛠️\nمرحباً أ/ ${order.shippingAddress.name}، نتشرف بالتواصل معك بخصوص طلبك رقم #${order.id}\n\n`
       : `*Romaα Laser Company* 🛠️\nHello ${order.shippingAddress.name}, we are contacting you regarding your order #${order.id}\n\n`;
 
     // Status or CTA
@@ -82,7 +82,7 @@ export default function OrderDetailClient({ locale, order, customerUser }: Order
 
     // Contact Info
     const contact = isAr
-      ? `*لأي استفسار يمكنك التواصل معنا:* 📞\n01229256173 - 01144599925\n\n*شكراً لثقتك في روما ليزر.*`
+      ? `*لأي استفسار يمكنك التواصل معنا:* 📞\n01229256173 - 01144599925\n\n*شكراً لثقتك في روماد ليزر.*`
       : `*For inquiries, contact us:* 📞\n01229256173 - 01144599925\n\n*Thank you for choosing Romaα Laser.*`;
 
     return intro + header + summary + payment + contact;

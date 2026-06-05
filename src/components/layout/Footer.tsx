@@ -71,7 +71,7 @@ export default function Footer({ locale }: FooterProps) {
             <div className="relative h-10 w-36 mb-4">
               <Image
                 src="/images/logo.png"
-                alt="Romaα Laser روما ليزر"
+                alt="Romaα Laser روماد ليزر"
                 fill
                 className="object-contain"
                 sizes="144px"
@@ -233,7 +233,7 @@ export default function Footer({ locale }: FooterProps) {
       <div className="border-t border-white/10">
         <div className="container-romad py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p className="text-white/50 text-xs text-center sm:text-start">
-            © {currentYear} روما ليزر — Romaα Laser.{" "}
+            © {currentYear} روماد ليزر — Romaα Laser.{" "}
             {isAr ? "جميع الحقوق محفوظة" : "All Rights Reserved"}
           </p>
           <p className="text-white/30 text-xs">

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Users, Target, Award, ShieldCheck, MapPin, Phone, Mail } from "lucide-react";
 
 // Social Icons
@@ -23,9 +24,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const isAr = locale === "ar";
   return {
-    title: isAr ? "من نحن | روما ليزر" : "About Us | Romaα Laser",
+    title: isAr ? "من نحن | روماد ليزر" : "About Us | Romaα Laser",
     description: isAr 
-      ? "تعرف على روما ليزر، شريكك الموثوق في قطع غيار ماكينات الليزر CO2 في مصر."
+      ? "تعرف على روماد ليزر، شريكك الموثوق في قطع غيار ماكينات الليزر CO2 في مصر."
       : "Learn about Romaα Laser, your trusted partner for Laser and CO2 machine spare parts in Egypt.",
   };
 }
@@ -82,7 +83,7 @@ export default async function AboutPage({ params }: Props) {
             </h1>
             <p className="text-xl text-white/70 leading-relaxed">
               {isAr 
-                ? "روما ليزر هي المؤسسة الرائدة في مصر المتخصصة في توريد وصيانة ماكينات الليزر CO2، ملتزمون بتقديم أعلى جودة وأفضل خدمة ما بعد البيع."
+                ? "روماد ليزر هي المؤسسة الرائدة في مصر المتخصصة في توريد وصيانة ماكينات الليزر CO2، ملتزمون بتقديم أعلى جودة وأفضل خدمة ما بعد البيع."
                 : "Romaα Laser is Egypt's leading institution specializing in the supply and maintenance of Laser and CO2 machines, committed to delivering peak quality and after-sales service."}
             </p>
           </div>
@@ -108,11 +109,14 @@ export default async function AboutPage({ params }: Props) {
         <div className="container-romad">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="relative">
-              <div className="aspect-square rounded-[40px] bg-navy overflow-hidden shadow-2xl">
-                <img 
-                  src="/images/full%20logo.jpeg" 
+              <div className="relative aspect-square rounded-[40px] bg-navy overflow-hidden shadow-2xl">
+                <Image 
+                  src="/images/full logo.jpeg" 
                   alt="Romaα Laser Full Logo" 
-                  className="w-full h-full object-cover" 
+                  fill
+                  sizes="(max-w-lg) 100vw, 50vw"
+                  className="object-cover" 
+                  priority
                 />
               </div>
               <div className="absolute -bottom-8 -right-8 lg:-right-12 w-48 h-48 bg-gold rounded-full flex items-center justify-center p-8 text-center shadow-xl rotate-12">
@@ -128,7 +132,7 @@ export default async function AboutPage({ params }: Props) {
               <div className="space-y-6 text-lg text-text-muted leading-relaxed">
                 <p>
                   {isAr 
-                    ? "بدأت رحلة روما ليزر منذ أكثر من عقد من الزمان في مدينة المحلة الكبرى، قلب الصناعة المصرية. كان هدفنا منذ اليوم الأول هو سد الفجوة في سوق قطع غيار ماكينات الليزر وتوفير بدائل عالية الجودة بأسعار عادلة."
+                    ? "بدأت رحلة روماد ليزر منذ أكثر من عقد من الزمان في مدينة المحلة الكبرى، قلب الصناعة المصرية. كان هدفنا منذ اليوم الأول هو سد الفجوة في سوق قطع غيار ماكينات الليزر وتوفير بدائل عالية الجودة بأسعار عادلة."
                     : "Romaα Laser's journey began over a decade ago in Mahalla El Kubra, the heart of Egyptian industry. Our goal from day one was to bridge the gap in the laser spare parts market and provide high-quality alternatives at fair prices."}
                 </p>
                 <p>

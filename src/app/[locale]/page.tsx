@@ -15,10 +15,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: isAr
-      ? "الرئيسية | روما ليزر — قطع غيار ماكينات الليزر CO2"
+      ? "الرئيسية | روماد ليزر — قطع غيار ماكينات الليزر CO2"
       : "Home | Romaα Laser — Laser & CO2 Machine Spare Parts",
     description: isAr
-      ? "روما ليزر — متخصصون في توفير قطع غيار ماكينات الليزر CO2 وخدمات الصيانة الاحترافية بأفضل الأسعار في مصر."
+      ? "روماد ليزر — متخصصون في توفير قطع غيار ماكينات الليزر CO2 وخدمات الصيانة الاحترافية بأفضل الأسعار في مصر."
       : "Romaα Laser — Specialists in laser and CO2 machine spare parts and professional maintenance services at the best prices in Egypt.",
   };
 }

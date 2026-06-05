@@ -40,7 +40,7 @@ async function createAdminUser() {
     // Create the user in Firebase Auth
     const userRecord = await auth.createUser({
       email: 'admin@romalaser.com',
-      password: 'Admin123!', // Change this password after creation
+      password: process.env.ADMIN_INITIAL_PASSWORD || 'Admin123!', // Change this password after creation
       displayName: 'Admin User',
     });
 
@@ -56,7 +56,11 @@ async function createAdminUser() {
 
     console.log('Admin user created successfully with role: admin');
     console.log('Email: admin@romalaser.com');
-    console.log('Password: Admin123! (Please change this immediately)');
+    if (!process.env.ADMIN_INITIAL_PASSWORD) {
+      console.warn('WARNING: Using default password "Admin123!". Please change this immediately!');
+    } else {
+      console.log('Password: (Using password from environment variable ADMIN_INITIAL_PASSWORD)');
+    }
   } catch (error) {
     console.error('Error creating admin user:', error);
   } finally {

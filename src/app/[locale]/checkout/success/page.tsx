@@ -19,10 +19,10 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
   return {
     title: orderId
       ? isAr
-        ? `تم الطلب #${orderId} | روما ليزر`
+        ? `تم الطلب #${orderId} | روماد ليزر`
         : `Order #${orderId} Confirmed | Romaα Laser`
       : isAr
-      ? "تم الطلب | روما ليزر"
+      ? "تم الطلب | روماد ليزر"
       : "Order Confirmed | Romaα Laser",
   };
 }
