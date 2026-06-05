@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { 
   Package, 
   Truck, 
@@ -188,7 +189,7 @@ export default function OrderDetailClient({ locale, order, customerUser }: Order
               {order.items.map((item, index) => (
                 <div key={`${item.productId}-${index}`} className="p-6 flex items-center gap-4 group">
                   <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-gray-50 flex-shrink-0 border border-gray-100">
-                    <img src={item.image} alt={isAr ? item.name_ar : item.name_en} className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
+                    <Image src={item.image} alt={isAr ? item.name_ar : item.name_en} fill sizes="80px" className="object-cover group-hover:scale-110 transition-transform" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <h3 className="font-bold text-navy truncate hover:text-gold transition-colors cursor-default">
@@ -453,10 +454,10 @@ export default function OrderDetailClient({ locale, order, customerUser }: Order
                     href={order.paymentScreenshot} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="block overflow-hidden rounded-2xl border border-gray-100 hover:opacity-80 transition-opacity bg-gray-50"
+                    className="block relative overflow-hidden rounded-2xl border border-gray-100 hover:opacity-80 transition-opacity bg-gray-50 w-full h-60"
                   >
-                    <img src={order.paymentScreenshot} alt="Payment" className="w-full h-auto max-h-60 object-contain mx-auto" />
-                    <div className="p-3 text-center text-xs font-bold text-navy">
+                    <Image src={order.paymentScreenshot} alt="Payment" fill sizes="400px" className="object-contain mx-auto" />
+                    <div className="absolute bottom-0 left-0 right-0 bg-black/60 p-3 text-center text-xs font-bold text-white">
                       {isAr ? "عرض الإيصال بالحجم الكامل" : "View Full Receipt"}
                     </div>
                   </a>

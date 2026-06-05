@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useAuth } from "@/hooks/useAuth";
 import { updateUser } from "@/lib/firestore";
 import { useUIStore } from "@/store/uiStore";
@@ -190,7 +191,7 @@ export default function AccountProfileClient({ locale }: Props) {
             {/* Avatar Upload Grid */}
             <div className="relative group w-24 h-24 rounded-full overflow-hidden border-4 border-gold shadow-lg bg-navy flex-shrink-0 flex items-center justify-center">
               {avatarUrl ? (
-                <img src={avatarUrl} alt={name} className="w-full h-full object-cover" />
+                <Image src={avatarUrl} alt={name} fill sizes="96px" className="object-cover" />
               ) : (
                 <User size={40} className="text-white/40" />
               )}

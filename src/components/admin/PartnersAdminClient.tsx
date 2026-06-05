@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { 
   Users, 
   Search, 
@@ -169,9 +170,9 @@ export default function PartnersAdminClient({ initialPartners, locale }: Props) 
 
                 {/* Profile Brief */}
                 <div className="flex items-center gap-4 mb-6 pb-6 border-b border-gray-50">
-                  <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-50 border-2 border-gold/40 flex-shrink-0 flex items-center justify-center">
+                  <div className="relative w-16 h-16 rounded-full overflow-hidden bg-gray-50 border-2 border-gold/40 flex-shrink-0 flex items-center justify-center">
                     {partner.avatarUrl ? (
-                      <img src={partner.avatarUrl} alt={partner.name} className="w-full h-full object-cover" />
+                      <Image src={partner.avatarUrl} alt={partner.name} fill sizes="64px" className="object-cover" />
                     ) : (
                       <Users size={28} className="text-gray-300" />
                     )}

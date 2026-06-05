@@ -69,3 +69,19 @@ export function extractPublicId(cloudinaryUrl: string): string {
   const withoutVersion = parts[1].replace(/^v\d+\//, "");
   return withoutVersion.replace(/\.[^/.]+$/, "");
 }
+
+export function optimizeCloudinaryUrl(url: string, width?: number, quality = "auto:eco"): string {
+  if (!url || !url.includes("cloudinary.com")) return url;
+
+  if (url.includes("/upload/")) {
+    const parts = url.split("/upload/");
+    const transforms = [`q_${quality}`, "f_auto"];
+    if (width) {
+      transforms.push(`w_${width}`);
+      transforms.push("c_limit");
+    }
+    return `${parts[0]}/upload/${transforms.join(",")}/${parts[1]}`;
+  }
+
+  return url;
+}

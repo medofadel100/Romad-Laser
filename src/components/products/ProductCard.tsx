@@ -9,6 +9,7 @@ import { useCartStore } from "@/store/cartStore";
 import { useWishlistStore } from "@/store/wishlistStore";
 import { useUIStore } from "@/store/uiStore";
 import { formatPrice, getDiscountPercentage } from "@/lib/utils";
+import { optimizeCloudinaryUrl } from "@/lib/cloudinary";
 import type { Product } from "@/types";
 
 export type ProductPreview = Omit<Product, "createdAt" | "updatedAt">;
@@ -27,7 +28,7 @@ export default function ProductCard({ product, locale }: ProductCardProps) {
   useEffect(() => { setIsMounted(true); }, []);
   const inWishlist = isMounted ? isInWishlist(product.id) : false;
   const isDiscounted = Boolean(product.salePrice && product.salePrice < product.price);
-  const mainImage = product.images[0]?.url || "/images/logo.png";
+  const mainImage = optimizeCloudinaryUrl(product.images[0]?.url || "/images/logo.png", 600);
 
   const handleAddToCart = () => {
     addItem({

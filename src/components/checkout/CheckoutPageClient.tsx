@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { 
@@ -647,8 +648,8 @@ export default function CheckoutPageClient({
             <div className="space-y-5 mb-8">
               {items.map((item) => (
                 <div key={item.id} className="flex items-center gap-4 group">
-                  <div className="w-16 h-16 rounded-2xl overflow-hidden bg-gray-100 flex-shrink-0 border border-gray-50 group-hover:border-gold transition-colors">
-                    <img src={item.image} alt={isAr ? item.name_ar : item.name_en} className="w-full h-full object-cover" />
+                  <div className="relative w-16 h-16 rounded-2xl overflow-hidden bg-gray-100 flex-shrink-0 border border-gray-50 group-hover:border-gold transition-colors">
+                    <Image src={item.image} alt={isAr ? item.name_ar : item.name_en} fill sizes="64px" className="object-cover" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="font-black text-navy text-sm truncate leading-tight mb-1">{isAr ? item.name_ar : item.name_en}</p>

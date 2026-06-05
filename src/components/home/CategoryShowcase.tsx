@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ArrowLeft } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getCategories } from "@/lib/firestore";
+import { optimizeCloudinaryUrl } from "@/lib/cloudinary";
 import type { Category } from "@/types";
 
 // Fallback categories if Firestore is empty
@@ -68,7 +69,7 @@ export default function CategoryShowcase({ locale }: CategoryShowcaseProps) {
               {/* Background Image if available */}
               {cat.image && (
                 <Image
-                  src={cat.image}
+                  src={optimizeCloudinaryUrl(cat.image, 500)}
                   alt={isAr ? cat.name_ar : cat.name_en}
                   fill
                   className="object-cover opacity-30 group-hover:opacity-40 transition-opacity"

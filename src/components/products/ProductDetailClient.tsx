@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 
 import Image from "next/image";
+import { optimizeCloudinaryUrl } from "@/lib/cloudinary";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Heart, ShoppingCart, Star, ArrowLeft, Layers } from "lucide-react";
@@ -117,7 +118,7 @@ export default function ProductDetailClient({ product, relatedProducts, locale }
           <div className="rounded-3xl overflow-hidden border border-gray-200 bg-white shadow-sm">
             <div className="relative aspect-[4/3] bg-gray-100">
               <Image
-                src={images[activeImage].url}
+                src={optimizeCloudinaryUrl(images[activeImage].url, 800)}
                 alt={images[activeImage].alt}
                 fill
                 className="object-cover"
@@ -136,7 +137,7 @@ export default function ProductDetailClient({ product, relatedProducts, locale }
               >
                 <div className="relative aspect-square">
                   <Image
-                    src={img.url}
+                    src={optimizeCloudinaryUrl(img.url, 200)}
                     alt={img.alt}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform"

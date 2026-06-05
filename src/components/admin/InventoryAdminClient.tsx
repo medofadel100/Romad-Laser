@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
+import Image from "next/image";
 import { useForm, useFieldArray } from "react-hook-form";
 import { useUIStore } from "@/store/uiStore";
 import { uploadMultipleToCloudinary } from "@/lib/cloudinary";
@@ -440,11 +441,13 @@ export default function InventoryAdminClient({ locale }: InventoryAdminClientPro
                   <tr key={product.id} className="hover:bg-gray-50/50 transition-colors">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
-                        <div className="h-12 w-12 rounded-xl border border-gray-100 overflow-hidden bg-gray-50 flex-shrink-0">
-                          <img 
+                        <div className="relative h-12 w-12 rounded-xl border border-gray-100 overflow-hidden bg-gray-50 flex-shrink-0">
+                          <Image 
                             src={product.images?.[0]?.url || "/images/logo.png"} 
                             alt={product.name_ar}
-                            className="h-full w-full object-cover"
+                            fill
+                            sizes="48px"
+                            className="object-cover"
                           />
                         </div>
                         <div>
@@ -744,7 +747,7 @@ export default function InventoryAdminClient({ locale }: InventoryAdminClientPro
                       <div className="grid grid-cols-3 gap-2">
                         {existingImages.map((img, i) => (
                           <div key={i} className={`relative aspect-square rounded-xl overflow-hidden border-2 ${mainImageIndex === i ? 'border-gold shadow-md' : 'border-gray-200'}`}>
-                            <img src={img.url} className="h-full w-full object-cover" />
+                            <Image src={img.url} alt="Product image" fill sizes="150px" className="object-cover" />
                             <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-transparent pointer-events-none" />
                             <button
                               type="button"

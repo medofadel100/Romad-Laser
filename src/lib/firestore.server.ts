@@ -1,5 +1,6 @@
 import type { Product, Category, Order, AppUser } from "@/types";
 import * as admin from "firebase-admin";
+import { cache } from "react";
 
 const PROJECT_ID = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
 const BASE_URL = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents`;
@@ -119,7 +120,7 @@ function unwrapValue(value: any): any {
   return value;
 }
 
-export async function getAllProducts() {
+export const getAllProducts = cache(async () => {
   if (adminDb) {
     try {
       const snapshot = await adminDb
@@ -172,9 +173,9 @@ export async function getAllProducts() {
         return timeB - timeA;
       });
   }
-}
+});
 
-export async function getProducts(categoryId?: string): Promise<PaginatedProducts> {
+export const getProducts = cache(async (categoryId?: string): Promise<PaginatedProducts> => {
   if (adminDb) {
     try {
       let q = adminDb.collection("products").where("isActive", "==", true);
@@ -268,9 +269,9 @@ export async function getProducts(categoryId?: string): Promise<PaginatedProduct
       hasMore: filtered.length > PRODUCTS_PER_PAGE,
     };
   }
-}
+});
 
-export async function getCategories() {
+export const getCategories = cache(async () => {
   if (adminDb) {
     try {
       const snapshot = await adminDb.collection("categories").orderBy("order", "asc").get();
@@ -284,14 +285,14 @@ export async function getCategories() {
   const categories = (data.documents || []).map(mapRestDoc) as Category[];
   
   return categories.sort((a, b) => (a.order || 0) - (b.order || 0));
-}
+});
 
-export async function getCategoryBySlug(slug: string) {
+export const getCategoryBySlug = cache(async (slug: string) => {
   const categories = await getCategories();
   return categories.find((c) => c.slug === slug) || null;
-}
+});
 
-export async function getProductBySlug(slug: string) {
+export const getProductBySlug = cache(async (slug: string) => {
   if (adminDb) {
     try {
       const snapshot = await adminDb
@@ -308,9 +309,9 @@ export async function getProductBySlug(slug: string) {
 
   const products = await getAllProducts();
   return products.find((p) => p.slug === slug) || null;
-}
+});
 
-export async function searchProducts(searchTerm: string) {
+export const searchProducts = cache(async (searchTerm: string) => {
   const products = await getAllProducts();
   const normalized = searchTerm.trim().toLowerCase();
   
@@ -320,9 +321,9 @@ export async function searchProducts(searchTerm: string) {
       product.name_en.toLowerCase().includes(normalized) ||
       product.tags?.some((tag) => tag.toLowerCase().includes(normalized))
   );
-}
+});
 
-export async function getOrderById(orderId: string) {
+export const getOrderById = cache(async (orderId: string) => {
   if (adminDb) {
     try {
       const doc = await adminDb.collection("orders").doc(orderId).get();
@@ -342,9 +343,9 @@ export async function getOrderById(orderId: string) {
     console.error("Error fetching order by ID:", error);
     return null;
   }
-}
+});
 
-export async function getShippingSettings() {
+export const getShippingSettings = cache(async () => {
   if (adminDb) {
     try {
       const doc = await adminDb.collection("settings").document("shipping").get();
@@ -393,9 +394,9 @@ export async function getShippingSettings() {
       } as Record<string, number>
     };
   }
-}
+});
 
-export async function getAllOrders() {
+export const getAllOrders = cache(async () => {
   if (adminDb) {
     try {
       const snapshot = await adminDb.collection("orders").orderBy("createdAt", "desc").get();
@@ -417,9 +418,9 @@ export async function getAllOrders() {
     console.error("Error fetching all orders:", error);
     return [];
   }
-}
+});
 
-export async function getFeaturedProducts(limitCount: number = 8) {
+export const getFeaturedProducts = cache(async (limitCount: number = 8) => {
   if (adminDb) {
     try {
       const snapshot = await adminDb
@@ -484,9 +485,9 @@ export async function getFeaturedProducts(limitCount: number = 8) {
       .filter((p) => p.isFeatured === true)
       .slice(0, limitCount);
   }
-}
+});
 
-export async function getAllUsers() {
+export const getAllUsers = cache(async () => {
   if (adminDb) {
     try {
       const snapshot = await adminDb.collection("users").orderBy("createdAt", "desc").get();
@@ -504,9 +505,9 @@ export async function getAllUsers() {
     console.error("Error fetching all users:", error);
     return [];
   }
-}
+});
 
-export async function getUserById(uid: string) {
+export const getUserById = cache(async (uid: string) => {
   if (uid.startsWith("guest_")) {
     return {
       id: uid,
@@ -537,9 +538,9 @@ export async function getUserById(uid: string) {
     }
     return null;
   }
-}
+});
 
-export async function getAllMaintenanceRequests() {
+export const getAllMaintenanceRequests = cache(async () => {
   if (adminDb) {
     try {
       const snapshot = await adminDb.collection("maintenance_requests").orderBy("createdAt", "desc").get();
@@ -562,9 +563,9 @@ export async function getAllMaintenanceRequests() {
     console.error("Error fetching all maintenance requests:", error);
     return [];
   }
-}
+});
 
-export async function getCustomerMaintenanceHistory(customerId: string) {
+export const getCustomerMaintenanceHistory = cache(async (customerId: string) => {
   if (adminDb) {
     try {
       const snapshot = await adminDb
@@ -594,4 +595,4 @@ export async function getCustomerMaintenanceHistory(customerId: string) {
     console.error(`Error fetching maintenance history for ${customerId}:`, error);
     return [];
   }
-}
+});

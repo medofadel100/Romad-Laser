@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useAuth } from "@/hooks/useAuth";
 import { useWishlistStore } from "@/store/wishlistStore";
 import { useMemo } from "react";
@@ -25,7 +26,15 @@ export default function WishlistPage({ params }: Props) {
       items.map((item) => (
         <li key={item.productId} className="flex flex-col gap-3 rounded-3xl border border-white/10 bg-white/5 p-4 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-4">
-            <img src={item.image} alt={isAr ? item.name_ar : item.name_en} className="h-20 w-20 rounded-2xl object-cover" />
+            <div className="relative h-20 w-20 overflow-hidden rounded-2xl flex-shrink-0">
+              <Image
+                src={item.image}
+                alt={isAr ? item.name_ar : item.name_en}
+                fill
+                sizes="80px"
+                className="object-cover"
+              />
+            </div>
             <div>
               <p className="text-white font-semibold">{isAr ? item.name_ar : item.name_en}</p>
               <p className="text-sm text-white/60">{item.price.toLocaleString(isAr ? "ar-EG" : "en-EG")} {isAr ? "جنيه" : "EGP"}</p>

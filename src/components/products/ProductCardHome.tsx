@@ -7,6 +7,7 @@ import { useCartStore } from "@/store/cartStore";
 import { useWishlistStore } from "@/store/wishlistStore";
 import { useUIStore } from "@/store/uiStore";
 import { formatPrice, getDiscountPercentage, cn } from "@/lib/utils";
+import { optimizeCloudinaryUrl } from "@/lib/cloudinary";
 import type { Product } from "@/types";
 
 interface ProductCardHomeProps {
@@ -21,7 +22,7 @@ export default function ProductCardHome({ product, locale }: ProductCardHomeProp
   const { addToast } = useUIStore();
   const inWishlist = isInWishlist(product.id);
   const isDiscounted = product.salePrice && product.salePrice < product.price;
-  const mainImage = product.images[0]?.url || "/images/logo.png";
+  const mainImage = optimizeCloudinaryUrl(product.images[0]?.url || "/images/logo.png", 600);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
