@@ -14,7 +14,7 @@ const features = [
     icon: Wrench,
     title_ar: "صيانة احترافية",
     title_en: "Professional Maintenance",
-    desc_ar: "فريق متخصص من المهندسين لصيانة وإصلاح ماكينات الليزر والـ CO2 في موقعك",
+    desc_ar: "فريق متخصص من المهندسين لصيانة وإصلاح ماكينات الليزر CO2 في موقعك",
     desc_en: "Specialized engineering team for laser and CO2 machine maintenance and repair at your location",
     color: "text-navy bg-navy/5",
     accent: "#1B2A4A",
@@ -62,7 +62,7 @@ export default function WhyUs({ locale }: WhyUsProps) {
           </h2>
           <p className="text-white/60 max-w-xl mx-auto">
             {isAr
-              ? "نقدم لك أفضل الحلول لقطع غيار ماكينات الليزر والـ CO2 مع خدمة صيانة احترافية"
+              ? "نقدم لك أفضل الحلول لقطع غيار ماكينات الليزر CO2 مع خدمة صيانة احترافية"
               : "We offer you the best solutions for laser and CO2 machine spare parts with professional maintenance service"}
           </p>
         </div>

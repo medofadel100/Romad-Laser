@@ -79,7 +79,7 @@ export default function Footer({ locale }: FooterProps) {
             </div>
             <p className="text-white/70 text-sm leading-relaxed mb-5">
               {isAr
-                ? "متخصصون في قطع غيار ماكينات الليزر والـ CO2 وخدمات الصيانة الاحترافية في مصر"
+                ? "متخصصون في قطع غيار ماكينات الليزر CO2 وخدمات الصيانة الاحترافية في مصر"
                 : "Specialists in laser and CO2 machine spare parts and professional maintenance services in Egypt"}
             </p>
 

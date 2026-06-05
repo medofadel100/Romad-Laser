@@ -94,7 +94,7 @@ export default function MaintenanceRequestClient({ locale }: { locale: string })
           </h1>
           <p className="text-lg text-text-muted font-medium max-w-2xl mx-auto leading-relaxed">
             {isAr 
-              ? "مهندسونا المتخصصون جاهزون لزيارتك في موقعك وتشخيص أعطال ماكينات الليزر والـ CO2 بدقة واحترافية." 
+              ? "مهندسونا المتخصصون جاهزون لزيارتك في موقعك وتشخيص أعطال ماكينات الليزر CO2 بدقة واحترافية." 
               : "Our specialized engineers are ready to visit your site to accurately diagnose and fix your Laser and CO2 machines."}
           </p>
         </div>

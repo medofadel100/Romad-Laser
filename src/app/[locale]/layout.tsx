@@ -22,12 +22,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: {
       default: isAr
-        ? "روما ليزر | قطع غيار ماكينات الليزر والـ CO2"
+        ? "روما ليزر | قطع غيار ماكينات الليزر CO2"
         : "Romaα Laser | Laser & CO2 Machine Spare Parts",
       template: isAr ? "%s | روما ليزر" : "%s | Romaα Laser",
     },
     description: isAr
-      ? "متخصصون في قطع غيار ماكينات الليزر والـ CO2 وخدمات الصيانة الاحترافية. أفضل الأسعار وضمان الجودة في مصر."
+      ? "متخصصون في قطع غيار ماكينات الليزر CO2 وخدمات الصيانة الاحترافية. أفضل الأسعار وضمان الجودة في مصر."
       : "Specialists in laser and CO2 machine spare parts and professional maintenance services. Best prices and quality guarantee in Egypt.",
     keywords: isAr
       ? ["ليزر", "CO2", "قطع غيار", "صيانة", "مصر", "روما ليزر", "ماكينات"]
@@ -41,10 +41,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: "https://romalaser.com",
       siteName: "Romaα Laser | روما ليزر",
       title: isAr
-        ? "روما ليزر | قطع غيار ماكينات الليزر والـ CO2"
+        ? "روما ليزر | قطع غيار ماكينات الليزر CO2"
         : "Romaα Laser | Laser & CO2 Machine Spare Parts",
       description: isAr
-        ? "متخصصون في قطع غيار ماكينات الليزر والـ CO2 وخدمات الصيانة"
+        ? "متخصصون في قطع غيار ماكينات الليزر CO2 وخدمات الصيانة"
         : "Specialists in laser and CO2 machine spare parts and maintenance",
     },
     robots: {

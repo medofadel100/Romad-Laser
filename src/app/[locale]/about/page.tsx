@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: isAr ? "من نحن | روما ليزر" : "About Us | Romaα Laser",
     description: isAr 
-      ? "تعرف على روما ليزر، شريكك الموثوق في قطع غيار ماكينات الليزر والـ CO2 في مصر."
+      ? "تعرف على روما ليزر، شريكك الموثوق في قطع غيار ماكينات الليزر CO2 في مصر."
       : "Learn about Romaα Laser, your trusted partner for Laser and CO2 machine spare parts in Egypt.",
   };
 }
@@ -82,7 +82,7 @@ export default async function AboutPage({ params }: Props) {
             </h1>
             <p className="text-xl text-white/70 leading-relaxed">
               {isAr 
-                ? "روما ليزر هي المؤسسة الرائدة في مصر المتخصصة في توريد وصيانة ماكينات الليزر والـ CO2، ملتزمون بتقديم أعلى جودة وأفضل خدمة ما بعد البيع."
+                ? "روما ليزر هي المؤسسة الرائدة في مصر المتخصصة في توريد وصيانة ماكينات الليزر CO2، ملتزمون بتقديم أعلى جودة وأفضل خدمة ما بعد البيع."
                 : "Romaα Laser is Egypt's leading institution specializing in the supply and maintenance of Laser and CO2 machines, committed to delivering peak quality and after-sales service."}
             </p>
           </div>

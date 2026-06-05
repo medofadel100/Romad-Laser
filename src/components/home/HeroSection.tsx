@@ -204,7 +204,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
             <span className="block text-laser text-3xl sm:text-4xl lg:text-5xl font-bold drop-shadow-lg" style={{
               textShadow: "0 0 20px rgba(0, 217, 255, 0.8)"
             }}>
-              {isAr ? "ماكينات الليزر والـ CO2" : "Laser & CO2 Machines"}
+              {isAr ? "ماكينات الليزر CO2" : "Laser & CO2 Machines"}
             </span>
           </h1>
 
@@ -213,7 +213,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
             animation: "fadeInUp 1.2s ease-out"
           }}>
             {isAr
-              ? "متخصصون في توفير قطع غيار ماكينات الليزر والـ CO2 وتقديم خدمات الصيانة الاحترافية. جودة مضمونة وأسعار تنافسية."
+              ? "متخصصون في توفير قطع غيار ماكينات الليزر CO2 وتقديم خدمات الصيانة الاحترافية. جودة مضمونة وأسعار تنافسية."
               : "Specialists in providing laser and CO2 machine spare parts and professional maintenance services. Guaranteed quality and competitive prices."}
           </p>
 
