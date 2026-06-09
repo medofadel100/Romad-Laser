@@ -5,6 +5,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import MobileNav from "@/components/layout/MobileNav";
 import ToastContainer from "@/components/ui/Toast";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 type Props = {
   children: React.ReactNode;
@@ -83,6 +84,7 @@ export default async function LocaleLayout({ children, params }: Props) {
         </main>
         <Footer locale={locale} />
         <MobileNav locale={locale} />
+        <SpeedInsights />
       </AuthProvider>
     </div>
   );
